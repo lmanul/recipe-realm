@@ -61,7 +61,7 @@ def post_process_img(image_file):
 def main():
     with open(os.path.join(DATA_DIR, "recipes.json")) as f:
         recipes = json.loads(f.read())
-    for recipe in recipes[:400]:
+    for recipe in recipes[:800]:
         if "url" in recipe:
             url = recipe["url"]
             recipe_id = get_recipe_id(url)

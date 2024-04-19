@@ -25,10 +25,19 @@ def scrape_img_url_from_markup_bbc(markup):
     img = img_container.find(class_="image__img")
     return img["src"]
 
+def scrape_img_url_from_markup_bbc_middle_east(markup):
+    "BBC 'Middle-East' version of a function to get the URL of a recipe's image"
+    soup = BeautifulSoup(markup, "html.parser")
+    img_container = soup.find(class_="img-holder")
+    img = img_container.find(class_="img-responsive")
+    return img["src"]
+
 def get_strategy(url):
     "Returns a function suitable for getting the image URL from the given HTML"
     if "www.bbcgoodfood.com" in url:
         return scrape_img_url_from_markup_bbc
+    if "www.bbcgoodfoodme.com" in url:
+        return scrape_img_url_from_markup_bbc_middle_east
     raise NotImplementedError("I don't support this source yet: " + url)
 
 def scrape_one_recipe_img(url, out_file):

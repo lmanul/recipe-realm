@@ -67,6 +67,7 @@ def main():
             recipe_id = get_recipe_id(url)
             image_file = os.path.join(IMG_DIR, recipe_id + ".jpg")
             if os.path.exists(image_file):
+                # TODO: Potentially add a flag to force re-fetch
                 print("Already got image, skipping...")
             else:
                 scrape_one_recipe_img(url, image_file)

@@ -1,0 +1,35 @@
+#!/usr/bin/python3
+"""
+Use a 85% quality factor for the given JPG image. If this doesn't result in a
+significant size reduction, leave the image unchanged. This requires
+ImageMagick (Debian/Ubuntu package: imagemagick).
+"""
+
+import os
+import sys
+
+def main(file):
+    file = sys.argv[1]
+
+    bup = file + ".bup"
+
+    os.system("cp " + file + " " + bup)
+    os.system("convert -quality 85 " + file + " " + file)
+    os.system("./optijpg " + file)
+
+    orig_size = os.path.getsize(bup)
+    new_size = os.path.getsize(file)
+
+    saved_percent = round(
+        (float(orig_size - new_size) / float(orig_size)) * 100, 1)
+
+    print("(" + str(saved_percent) + ")", end=" ")
+
+    # Keep the original image if we didn't save much.
+    if saved_percent > 5:
+        os.system("rm " + bup)
+    else:
+        os.system("mv " + bup + " " + file)
+
+if __name__ == "__main__":
+    main(sys.argv[1])

@@ -1,0 +1,71 @@
+#!/usr/bin/python
+"""Scrapes images from an existing, JSON list of recipes. This is NOT meant to
+be run in production."""
+
+import hashlib
+import json
+import os
+import requests
+
+from bs4 import BeautifulSoup
+
+FETCH_TIMEOUT_SECONDS = 5
+RECIPE_ID_LENGTH = 6
+DATA_DIR = "../data"
+IMG_DIR = "../img"
+TOOLS_DIR = "../tools"
+
+def scrape_img_url_from_markup_bbc(markup):
+    soup = BeautifulSoup(markup, "html.parser")
+    img_container = soup.find(class_="post-header__image-container")
+    img = img_container.find(class_="image__img")
+    return img["src"]
+
+def get_strategy(url):
+    "Returns a function suitable for getting the image URL from the given HTML"
+    if "www.bbcgoodfood.com" in url:
+        return scrape_img_url_from_markup_bbc
+    raise Exception("I don't support this source yet")
+
+def scrape_one_recipe_img(url, out_file):
+    "Finds the image associated with this recipe URL and saves it to disk"
+    response = requests.get(url, timeout=FETCH_TIMEOUT_SECONDS)
+    if response.status_code == 200:
+        strategy = get_strategy(url)
+        img_url = strategy(response.text)
+        img_response = requests.get(img_url, timeout=FETCH_TIMEOUT_SECONDS)
+        # Show some progress indication
+        print(".", end="")
+        if img_response.status_code == 200:
+            if not os.path.exists(IMG_DIR):
+                os.mkdir(IMG_DIR)
+            with open(out_file, 'wb') as f:
+                f.write(img_response.content)
+
+def get_recipe_id(url):
+    "Returns a (reasonably) unique ID from the given recipe URL"
+    return hashlib.sha1(url.encode()).hexdigest()[:RECIPE_ID_LENGTH]
+
+def post_process_img(image_file):
+    "Performs any steps required for a fetched image (e.g. filesize reduction)"
+    current_dir = os.getcwd()
+    os.chdir(TOOLS_DIR)
+    os.system("./imgjpg85quality " + image_file)
+    os.chdir(current_dir)
+
+def main():
+    with open(os.path.join(DATA_DIR, "recipes.json")) as f:
+        recipes = json.loads(f.read())
+    for recipe in recipes[:20]:
+        if "url" in recipe:
+            url = recipe["url"]
+            recipe_id = get_recipe_id(url)
+            image_file = os.path.join(IMG_DIR, recipe_id + ".jpg")
+            if os.path.exists(image_file):
+                print("Already got image, skipping...")
+            else:
+                scrape_one_recipe_img(url, image_file)
+                post_process_img(image_file)
+
+if __name__ == "__main__":
+    main()

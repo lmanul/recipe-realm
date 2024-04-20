@@ -25,4 +25,11 @@ export class Recipe {
         sha.update(this.url);
         return sha.digest('hex').substring(0, Recipe.ID_LENGTH);
     }
+
+    // Returns a short textual representation for debugging purposes.
+    public toString = (): string => {
+        return `<Recipe "${this.name}" (${this.id}),` +
+            ` ${this.ingredients.length} ingredients, ` +
+            `${this.method.length} steps>`;
+    };
 }

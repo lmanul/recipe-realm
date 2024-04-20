@@ -18,7 +18,6 @@ export class RecipeStore {
             this.allRecipes = data.default.map((item) => new Recipe(
                 item.Name, item.url, item.Description, item.Ingredients, item.Method
             ));
-            console.log(this.allRecipes[0]);
         });
     }
 

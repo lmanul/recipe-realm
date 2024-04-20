@@ -1,9 +1,12 @@
 {
     "compilerOptions": {
-        "target": "es6",
+        "module": "nodenext",
+        "target": "es2020",
         "esModuleInterop": true,
+        "moduleResolution": "nodenext",
         "outDir": "dist",
         "baseUrl": ".",
+        "resolveJsonModule": true,
         "paths": {
             "*": [
                 "node_modules/*",

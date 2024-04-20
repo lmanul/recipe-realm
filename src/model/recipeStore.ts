@@ -21,6 +21,14 @@ export class RecipeStore {
         });
     }
 
+    public getAll = (): Array<Recipe> => {
+        return this.allRecipes;
+    };
+
+    public getSlice = (start: number, end: number): Array<Recipe> => {
+        return this.allRecipes.slice(start, end);
+    }
+
     public getCount = (): number => {
         return this.allRecipes.length;
     };

@@ -3,13 +3,13 @@ import crypto from "crypto";
 export class Recipe {
     private static ID_LENGTH = 6;
 
-    private name: string;
-    private url: string;
-    private id: string;
-    private author: string;
-    private description: string;
-    private ingredients: Array<string>;
-    private method: Array<string>;
+    public name: string;
+    public url: string;
+    public id: string;
+    public author: string;
+    public description: string;
+    public ingredients: Array<string>;
+    public method: Array<string>;
 
     public constructor(name: string, url: string, description: string, ingredients: Array<string>, method: Array<string>) {
         this.name = name;

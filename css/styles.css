@@ -1,0 +1,36 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Roboto;
+}
+
+.recipe-list {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.recipe-item {
+  cursor: pointer;
+  display: inline-block;
+  margin: 1ex;
+  overflow: hidden;
+  padding: 1ex;
+  text-align: center;
+  text-overflow: ellipsis;
+  width: 17ex;
+}
+
+.recipe-item:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.recipe-item img {
+  width: 100%;
+}
+
+.recipe-item span {
+  display: block;
+}

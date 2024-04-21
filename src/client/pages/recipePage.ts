@@ -1,6 +1,8 @@
-import Recipe from "../../model/recipe";
-import RecipeStore from "../../model/recipeStore";
 import Page from "./page";
+import Recipe from "../../model/recipe";
+import RecipeBody from "../components/recipeBody";
+import RecipeHeader from "../components/recipeHeader";
+import RecipeStore from "../../model/recipeStore";
 
 export default class RecipePage extends Page {
     private recipe: Recipe;
@@ -30,11 +32,12 @@ export default class RecipePage extends Page {
 
     public render(data: string) {
         this.recipe = Recipe.deserialize(data);
-        console.log(this.recipe);
         // Populate the store if necessary. Subsequent loads will be instant.
         this.recipeStore.add(this.recipe);
         const page = document.createElement('div');
-        page.textContent = 'Recipe page ' + this.recipe.ingredients.join('');
+        page.classList.add('recipe-page');
+        page.appendChild(new RecipeHeader(this.recipe).render());
+        page.appendChild(new RecipeBody(this.recipe).render());
         return page;
     }
 }

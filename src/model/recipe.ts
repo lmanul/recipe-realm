@@ -50,7 +50,7 @@ export default class Recipe {
         if (pieces.length == 2) {
             return new Recipe(pieces[1], pieces[0]);
         } else if (pieces.length == 7) {
-            return new Recipe(pieces[1], pieces[0], pieces[2], pieces[3], pieces[4],
+            return new Recipe(pieces[0], pieces[1], pieces[2], pieces[3], pieces[4],
                 pieces[5].split('@'), pieces[6].split('@')
             );
         }

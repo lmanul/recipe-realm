@@ -46,6 +46,10 @@ export default class RecipeStore {
         return this.getAll().slice(start, end);
     }
 
+    public getById(recipeId: string) {
+        return this.allRecipes.get(recipeId);
+    }
+
     public getCount(): number {
         return this.allRecipes.size;
     };

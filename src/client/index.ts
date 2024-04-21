@@ -15,4 +15,9 @@ if (globalThis['initialRecipeData']) {
     }
 }
 
+globalThis.addEventListener('popstate', (data) => {
+    // TODO: Handle back navigation properly.
+    console.log('State popped', data);
+});
+
 new Home().navigate();

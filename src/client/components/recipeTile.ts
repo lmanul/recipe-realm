@@ -2,6 +2,7 @@
 
 import Recipe from "../../model/recipe";
 import Component from "./component";
+import RecipePage from "../pages/recipePage";
 
 export default class RecipeTile implements Component {
     public readonly recipe: Recipe;
@@ -10,11 +11,19 @@ export default class RecipeTile implements Component {
         this.recipe = recipe;
     }
 
+    private attachEvents(tile: HTMLElement) {
+        // When a tile is clicked, navigate to the corresponding details page.
+        tile.addEventListener('click', () => {
+            new RecipePage(this.recipe.id).navigate();
+        });
+    }
+
     public render(): HTMLElement {
-        const container = document.createElement('div');
-        container.classList.add('recipe-tile');
-        container.innerHTML = `<img src="/img/${this.recipe.id}.jpg" loading="lazy" />
+        const tile = document.createElement('div');
+        tile.classList.add('recipe-tile');
+        tile.innerHTML = `<img src="/img/${this.recipe.id}.jpg" loading="lazy" />
             <span>${this.recipe.name}</span>`;
-        return container;
+        this.attachEvents(tile);
+        return tile;
     };
 }

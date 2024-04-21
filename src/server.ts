@@ -41,7 +41,9 @@ app.use('/css', express.static('css'));
 // Home page
 app.get('/', (request, response) => {
     // Construct an initial piece of data for the client to render immediately.
-    const recipeSeed = recipeStore.getSlice(0, 100).map(
+    // All recipes in a "summary" state add up to ~60 kb so it's not worth
+    // doing paging/slicing and load more when scrolling.
+    const recipeSeed = recipeStore.getAll().map(
         recipe => recipe.serialize(true /* summaryOnly */)).join('#');
     response.render('home', { bundleUrl: '/' + BUNDLE_FILE_NAME, initialRecipeData: recipeSeed });
 });

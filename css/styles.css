@@ -31,7 +31,10 @@ body {
 }
 
 .recipe-tile img {
-  width: 100%;
+  background-color: #ddd;
+  height: 15ex;
+  object-fit: fill;
+  width: 15ex;
 }
 
 .recipe-tile span {

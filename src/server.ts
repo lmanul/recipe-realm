@@ -38,8 +38,20 @@ app.use('/css', express.static('css'));
 
 app.get('/', (request, response) => {
     // Construct an initial piece of data for the client to render immediately.
-    const recipeSeed = recipeStore.getSlice(0, 100).map(recipe => recipe.id + '|' + recipe.name).join('#');
+    const recipeSeed = recipeStore.getSlice(0, 100).map(
+        recipe => recipe.serialize(true /* summaryOnly */)).join('#');
     response.render('home', { bundleUrl: '/' + BUNDLE_FILE_NAME, initialRecipeData: recipeSeed });
+});
+
+// Data-only routes
+
+app.get('/r/:recipeId', (request, response) => {
+    const recipe = recipeStore.getById(request.params.recipeId);
+    if (recipe) {
+        response.send(recipe.serialize());
+    } else {
+        response.status(404);
+    }
 });
 
 app.listen(port, () => { console.log(`Listening on port ${port}. Ctrl-C to exit.`) });

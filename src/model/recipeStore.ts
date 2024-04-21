@@ -1,6 +1,6 @@
-import { Recipe } from './recipe';
+import Recipe from './recipe';
 
-export class RecipeStore {
+export default class RecipeStore {
     private static instance: RecipeStore;
     private allRecipes: Array<Recipe>;
 

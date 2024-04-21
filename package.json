@@ -3,19 +3,24 @@
   "version": "0.0.1",
   "description": "Help people discover and collect food recipes",
   "scripts": {
-    "dev": "nodemon src/server.ts",
-    "start": "ts-node src/server.ts",
+    "dev": "MODE='development'; nodemon src/server.ts",
+    "start": "npx webpack --mode production --config ./webpack.config.js; MODE='production' ts-node src/server.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Manu Cornet",
   "dependencies": {
     "ejs": "^3.1.10",
     "express": "^4.19.2",
+    "js-sha1": "^0.7.0",
     "ts-node": "^10.9.2"
   },
   "devDependencies": {
     "@types/express": "^4.17.21",
     "nodemon": "^3.1.0",
-    "typescript": "^5.4.5"
+    "ts-loader": "^9.5.1",
+    "typescript": "^5.4.5",
+    "webpack": "^5.91.0",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-middleware": "^7.2.1"
   }
 }

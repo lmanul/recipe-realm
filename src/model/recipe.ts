@@ -1,6 +1,6 @@
-import crypto from "crypto";
+import { sha1 } from "js-sha1";
 
-export class Recipe {
+export default class Recipe {
     private static ID_LENGTH = 6;
 
     public name: string;
@@ -21,9 +21,9 @@ export class Recipe {
     }
 
     private calculateId = (): string => {
-        const sha = crypto.createHash('sha1');
+        const sha = sha1.create();
         sha.update(this.url);
-        return sha.digest('hex').substring(0, Recipe.ID_LENGTH);
+        return sha.hex().substring(0, Recipe.ID_LENGTH);
     }
 
     // Returns a short textual representation for debugging purposes.

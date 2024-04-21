@@ -5,4 +5,4 @@ import RecipeStore from '../model/recipeStore';
 const recipeStore = RecipeStore.getInstance();
 console.log(recipeStore);
 
-document.getElementById('content').appendChild(new Home().render());
+new Home().navigate();

@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "MODE='development'; nodemon src/server.ts",
     "start": "npx webpack --mode production --config ./webpack.config.js; MODE='production' ts-node src/server.ts",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "vitest run"
   },
   "author": "Manu Cornet",
   "dependencies": {
@@ -19,6 +19,7 @@
     "nodemon": "^3.1.0",
     "ts-loader": "^9.5.1",
     "typescript": "^5.4.5",
+    "vitest": "^1.5.0",
     "webpack": "^5.91.0",
     "webpack-cli": "^5.1.4",
     "webpack-dev-middleware": "^7.2.1"

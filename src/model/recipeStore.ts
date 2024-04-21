@@ -39,11 +39,11 @@ export default class RecipeStore {
         if (!existing || !existing.hasDetails) {
             this.allRecipes.set(recipe.id, recipe);
         }
-    };
+    }
 
     public getAll(): Array<Recipe> {
         return Array.from(this.allRecipes.values());
-    };
+    }
 
     public getSlice = (start: number, end: number): Array<Recipe> => {
         return this.getAll().slice(start, end);
@@ -55,5 +55,9 @@ export default class RecipeStore {
 
     public getCount(): number {
         return this.allRecipes.size;
-    };
-};
+    }
+
+    public clearAll() {
+        this.allRecipes = new Map();
+    }
+}

@@ -47,7 +47,6 @@ export default class Recipe {
     // Returns an instance of Recipe deserialized from a string representation.
     public static deserialize(raw: string) {
         const pieces: Array<string> = raw.split('|');
-        console.log(pieces);
         if (pieces.length == 2) {
             return new Recipe(pieces[1], pieces[0]);
         } else if (pieces.length == 7) {

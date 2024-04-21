@@ -1,4 +1,5 @@
 import Home from "./pages/home";
+import ListsPage from "./pages/listsPage";
 import Page from "./pages/page";
 
 export default class PageStore {
@@ -8,7 +9,6 @@ export default class PageStore {
 
     private constructor() {
         this.pages = new Map();
-        this.add('/', new Home());
     };
 
     public static getInstance(): PageStore {

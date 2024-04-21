@@ -1,8 +1,14 @@
 import Home from '../client/pages/home';
+import ListsPage from './pages/listsPage';
+import PageStore from './pageStore';
 import Recipe from "../model/recipe";
 import RecipePage from './pages/recipePage';
 import RecipeStore from '../model/recipeStore';
-import PageStore from './pageStore';
+
+// Initialize the pages reachable from the nav bar.
+const pageStore = PageStore.getInstance();
+pageStore.add('/', new Home());
+pageStore.add('lists', new ListsPage());
 
 // Did we get initial data from the server? If so, populate our store
 // with that.

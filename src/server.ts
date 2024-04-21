@@ -54,8 +54,13 @@ app.get('/:recipeId', (request, response) => {
     if (recipe) {
         response.render('home', { bundleUrl: '/' + BUNDLE_FILE_NAME, initialRecipeData: recipe.serialize() });
     } else {
-        response.status(404);
+        response.status(404).end();
     }
+});
+
+app.get('/favicon.ico', (request, response) => {
+    // TODO: Add a favicon.
+    response.status(404).end();
 });
 
 // Data-only routes

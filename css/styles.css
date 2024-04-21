@@ -4,7 +4,31 @@
 
 body {
   font-family: Roboto;
+  margin: 0;
+}
+
+#content {
   margin: 1ex;
+}
+
+/* Navigation bar */
+
+nav {
+  align-items: center;
+  background-color: #ffc8b1;
+  display: flex;
+  justify-content: center;
+}
+
+nav span {
+  display: inline-block;
+  padding: 3ex;
+}
+
+nav span:hover {
+  background-color: #dc8a67;
+  color: white;
+  cursor: pointer;
 }
 
 /* Recipe list */

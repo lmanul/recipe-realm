@@ -26,6 +26,12 @@ if (globalThis['initialRecipeData']) {
     }
 }
 
+document.querySelector('nav').addEventListener('click', (event) => {
+    if (event.target instanceof HTMLElement) {
+        PageStore.getInstance().get(event.target.getAttribute('data-target')).navigate();
+    }
+});
+
 globalThis.addEventListener('popstate', (event) => {
     PageStore.getInstance().get(event.state.path).navigate();
 });

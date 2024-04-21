@@ -12,7 +12,7 @@ body {
   flex-wrap: wrap;
 }
 
-.recipe-item {
+.recipe-tile {
   cursor: pointer;
   display: inline-block;
   margin: 1ex;
@@ -23,14 +23,14 @@ body {
   width: 17ex;
 }
 
-.recipe-item:hover {
+.recipe-tile:hover {
   background-color: rgba(0, 0, 0, 0.1);
 }
 
-.recipe-item img {
+.recipe-tile img {
   width: 100%;
 }
 
-.recipe-item span {
+.recipe-tile span {
   display: block;
 }

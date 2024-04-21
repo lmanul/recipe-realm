@@ -3,18 +3,18 @@ import { sha1 } from "js-sha1";
 export default class Recipe {
     private static ID_LENGTH = 6;
 
-    public name: string;
+    public readonly name: string;
+    public readonly id: string;
     public url: string;
-    public id: string;
     public author: string;
     public description: string;
     public ingredients: Array<string>;
     public method: Array<string>;
 
-    public constructor(name: string, url: string, description: string, ingredients: Array<string>, method: Array<string>) {
+    public constructor(name: string, id?: string, url?: string, description?: string, ingredients?: Array<string>, method?: Array<string>) {
         this.name = name;
         this.url = url;
-        this.id = this.calculateId();
+        this.id = id || this.calculateId();
         this.description = description;
         this.ingredients = ingredients;
         this.method = method;

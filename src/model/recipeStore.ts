@@ -2,9 +2,12 @@ import Recipe from './recipe';
 
 export default class RecipeStore {
     private static instance: RecipeStore;
-    private allRecipes: Array<Recipe>;
+    // All of our recipes, keyed by ID
+    private allRecipes: Map<string, Recipe>;
 
-    private constructor() {};
+    private constructor() {
+        this.allRecipes = new Map();
+    };
 
     public static getInstance(): RecipeStore {
         if (!RecipeStore.instance) {
@@ -15,21 +18,30 @@ export default class RecipeStore {
 
     public initializeFromStoredData() {
         import('../../data/recipes.json', { assert: { type: "json" } }).then((data) => {
-            this.allRecipes = data.default.map((item) => new Recipe(
-                item.Name, item.url, item.Description, item.Ingredients, item.Method
+            const allRecipes: Array<Recipe> = data.default.map((item) => new Recipe(
+                item.Name, null, item.url, item.Description, item.Ingredients, item.Method
             ));
+            for (const recipe of allRecipes) {
+                this.add(recipe);
+            }
         });
     }
 
-    public getAll = (): Array<Recipe> => {
-        return this.allRecipes;
+    public add(recipe: Recipe) {
+        if (!this.allRecipes.has(recipe.id)) {
+            this.allRecipes.set(recipe.id, recipe);
+        }
+    };
+
+    public getAll(): Array<Recipe> {
+        return Array.from(this.allRecipes.values());
     };
 
     public getSlice = (start: number, end: number): Array<Recipe> => {
-        return this.allRecipes.slice(start, end);
+        return this.getAll().slice(start, end);
     }
 
-    public getCount = (): number => {
-        return this.allRecipes.length;
+    public getCount(): number {
+        return this.allRecipes.size;
     };
 };

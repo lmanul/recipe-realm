@@ -37,7 +37,9 @@ app.use('/img', express.static('img'));
 app.use('/css', express.static('css'));
 
 app.get('/', (request, response) => {
-    response.render('home', { bundleUrl: '/' + BUNDLE_FILE_NAME, recipes: recipeStore.getSlice(0, 100) });
+    // Construct an initial piece of data for the client to render immediately.
+    const recipeSeed = recipeStore.getSlice(0, 100).map(recipe => recipe.id + '|' + recipe.name).join('#');
+    response.render('home', { bundleUrl: '/' + BUNDLE_FILE_NAME, initialRecipeData: recipeSeed });
 });
 
 app.listen(port, () => { console.log(`Listening on port ${port}. Ctrl-C to exit.`) });

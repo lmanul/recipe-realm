@@ -24,12 +24,12 @@ export default class Page {
     // Returns the URL path for this page, for history management purposes.
     // Returns the empty string for the root page.
     public getPath(): string {
-        return "";
+        return '';
     }
 
     // Returns the title of the page, to be used (among others) for the browser tab.
     public getTitle(): string {
-        return "";
+        return '';
     }
 
     // Returns an element containing the page's content.

@@ -1,9 +1,5 @@
-/**
- * @file A common class for components within a page.
- */
+/** @file A common interface for components within a page. */
 
-export default class Component {
-    public render(): HTMLElement {
-        return document.createElement('div');
-    }
+export default interface Component {
+    render(): HTMLElement;
 }

@@ -1,3 +1,5 @@
+/** @file A class to represent a single recipe. */
+
 import { sha1 } from "js-sha1";
 
 export default class Recipe {

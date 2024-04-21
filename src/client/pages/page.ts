@@ -1,6 +1,4 @@
-/**
- * @file A common class for pages of the application.
- */
+/** @file A common class for pages of the application. */
 
 export default class Page {
     public navigate() {

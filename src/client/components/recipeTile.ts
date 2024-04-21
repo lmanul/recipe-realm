@@ -1,11 +1,12 @@
+/** @file A component to represent a single recipe without its details. */
+
 import Recipe from "../../model/recipe";
 import Component from "./component";
 
-export default class RecipeTile extends Component {
+export default class RecipeTile implements Component {
     public readonly recipe: Recipe;
 
     public constructor(recipe: Recipe) {
-        super();
         this.recipe = recipe;
     }
 

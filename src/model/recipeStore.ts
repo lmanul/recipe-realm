@@ -1,3 +1,8 @@
+/**
+ * @file A singleton repository of recipes. Note that this is used on both the
+ *     server and the client, but the data may be partial on the client side.
+*/
+
 import Recipe from './recipe';
 
 export default class RecipeStore {

@@ -1,4 +1,3 @@
-import Recipe from "../../model/recipe";
 import RecipeStore from "../../model/recipeStore";
 import RecipeTile from "../components/recipeTile";
 import Page from "./page";

@@ -17,8 +17,12 @@ export default class RecipePage extends Page {
             // We already have what we need
             return super.load();
         }
+        // Get recipe details from the server.
         return super.load().then(() => {
-            return fetch('/r/' + this.recipe.id).then(response => response.text());
+            return fetch('/r/' + this.recipe.id).then(
+                response => response.text().then((data) => {
+                    this.recipe = Recipe.deserialize(data);
+                }));
         });
     }
 
@@ -30,8 +34,7 @@ export default class RecipePage extends Page {
         return this.recipe.name;
     }
 
-    public render(data: string) {
-        this.recipe = Recipe.deserialize(data);
+    public render() {
         // Populate the store if necessary. Subsequent loads will be instant.
         this.recipeStore.add(this.recipe);
         const page = document.createElement('div');

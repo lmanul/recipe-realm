@@ -5,7 +5,7 @@ import Page from "./page";
 export default class Home extends Page {
     private recipeStore: RecipeStore = RecipeStore.getInstance();
 
-    public render(data: string) {
+    public render() {
         const page = document.createElement('div');
         const recipeList = document.createElement('div');
         recipeList.classList.add('recipe-list');

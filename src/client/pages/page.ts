@@ -3,21 +3,20 @@
 export default class Page {
 
     // Performs any necessary steps to load data from the server before rendering this page.
-    public load(): Promise<string> {
+    public load(): Promise<void> {
         const loading = document.createElement('div');
         loading.textContent = 'Loading...';
         document.getElementById('content').replaceChildren(loading);
-        return Promise.resolve('');
+        return Promise.resolve();
     }
 
     // Navigates to this page, replacing the currently viewed page.
     public navigate() {
-        this.load().then(data => {
-            console.log(globalThis.location.origin + '/' + this.getPath());
+        this.load().then(() => {
             const title = this.getTitle();
             globalThis.document.title = (title ? title + ' | ' : '') + 'Recipe Realm';
             history.pushState({}, '', globalThis.location.origin + '/' + this.getPath());
-            document.getElementById('content').replaceChildren(this.render(data));
+            document.getElementById('content').replaceChildren(this.render());
         })
     }
 
@@ -33,7 +32,7 @@ export default class Page {
     }
 
     // Returns an element containing the page's content.
-    public render(data: string): HTMLElement {
+    public render(): HTMLElement {
         return document.createElement('div');
     }
 }

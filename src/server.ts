@@ -36,11 +36,24 @@ recipeStore.initializeFromStoredData();
 app.use('/img', express.static('img'));
 app.use('/css', express.static('css'));
 
+// User-visible routes
+
+// Home page
 app.get('/', (request, response) => {
     // Construct an initial piece of data for the client to render immediately.
     const recipeSeed = recipeStore.getSlice(0, 100).map(
         recipe => recipe.serialize(true /* summaryOnly */)).join('#');
     response.render('home', { bundleUrl: '/' + BUNDLE_FILE_NAME, initialRecipeData: recipeSeed });
+});
+
+// Recipe page as initial page load
+app.get('/:recipeId', (request, response) => {
+    const recipe = recipeStore.getById(request.params.recipeId);
+    if (recipe) {
+        response.render('home', { bundleUrl: '/' + BUNDLE_FILE_NAME, initialRecipeData: recipe.serialize() });
+    } else {
+        response.status(404);
+    }
 });
 
 // Data-only routes

@@ -21,6 +21,8 @@ export default class RecipeStore {
         return RecipeStore.instance;
     }
 
+    // Populate this store with data from the on-disk JSON. This is only
+    // relevant on the server.
     public initializeFromStoredData() {
         import('../../data/recipes.json', { assert: { type: "json" } }).then((data) => {
             const allRecipes: Array<Recipe> = data.default.map((item) => new Recipe(
@@ -41,6 +43,7 @@ export default class RecipeStore {
         }
     }
 
+    // Returns an array of all the recipes we have.
     public getAll(): Array<Recipe> {
         return Array.from(this.allRecipes.values());
     }

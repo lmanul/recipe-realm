@@ -4,6 +4,7 @@
 
 body {
   font-family: Roboto;
+  margin: 1ex;
 }
 
 /* Recipe list */
@@ -41,6 +42,14 @@ body {
 
 .recipe-header {
   display: flex;
+}
+
+.recipe-header h2 {
+  display: inline-block;
+}
+
+.recipe-source {
+  margin-left: 1ex;
 }
 
 .recipe-header-text, .recipe-body {

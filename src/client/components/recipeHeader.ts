@@ -17,7 +17,7 @@ export default class RecipeHeader implements Component {
             <div class="recipe-header-text">
               <h2>${this.recipe.name}</h2>
               <span class="recipe-source">
-                <a href="${this.recipe.url}" target="_new">By ${this.recipe.author}</a>
+                <a href="${this.recipe.url}" target="_new">by ${this.recipe.author}</a>
               </span>
               <h3>Ingredients</h3>
               <ul>

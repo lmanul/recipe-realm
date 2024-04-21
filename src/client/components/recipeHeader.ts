@@ -13,7 +13,7 @@ export default class RecipeHeader implements Component {
         const header = document.createElement('div');
         header.classList.add('recipe-header');
         header.innerHTML = `
-            <img src="/img/${this.recipe.id}.jpg">
+            <img src="/img/${this.recipe.id}.jpg" />
             <div class="recipe-header-text">
               <h2>${this.recipe.name}</h2>
               <span class="recipe-source">

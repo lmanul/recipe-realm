@@ -48,6 +48,11 @@ body {
   display: inline-block;
 }
 
+.recipe-header img {
+  height: fit-content;
+  max-width: 50vw;
+}
+
 .recipe-source {
   margin-left: 1ex;
 }

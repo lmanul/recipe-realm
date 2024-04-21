@@ -1,11 +1,12 @@
 import Recipe from "../../model/recipe";
 import RecipeStore from "../../model/recipeStore";
-import RecipeTile from "../recipeTile";
+import RecipeTile from "../components/recipeTile";
+import Page from "./page";
 
-export default class Home {
+export default class Home extends Page {
     private recipeStore: RecipeStore = RecipeStore.getInstance();
 
-    public render(): HTMLElement {
+    public render() {
         const page = document.createElement('div');
         const recipeList = document.createElement('div');
         recipeList.classList.add('recipe-list');

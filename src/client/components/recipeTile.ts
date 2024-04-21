@@ -1,9 +1,11 @@
-import Recipe from "../model/recipe";
+import Recipe from "../../model/recipe";
+import Component from "./component";
 
-export default class RecipeTile {
+export default class RecipeTile extends Component {
     public readonly recipe: Recipe;
 
     public constructor(recipe: Recipe) {
+        super();
         this.recipe = recipe;
     }
 

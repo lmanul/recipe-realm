@@ -10,14 +10,11 @@ export default class Home extends Page {
         const page = document.createElement('div');
         const recipeList = document.createElement('div');
         recipeList.classList.add('recipe-list');
-        // We got some initial data from the server, let's render that.
-        const recipeStrings = globalThis['initialRecipeData'].split('#');
-        for (const recipeString of recipeStrings) {
-            const [id, name] = recipeString.split('|');
-            const recipe = new Recipe(name, id);
-            this.recipeStore.add(recipe);
+
+        // Render all the recipes we currently have.
+        this.recipeStore.getAll().map(recipe => {
             recipeList.appendChild(new RecipeTile(recipe).render());
-        }
+        });
         page.appendChild(recipeList);
         return page;
     }

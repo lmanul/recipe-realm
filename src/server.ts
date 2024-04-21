@@ -1,14 +1,17 @@
-import express from "express";
-import { readFile } from "fs";
-import RecipeStore from "./model/recipeStore";
+import express from 'express';
+import { checkAuthenticated, setUpAuthentication } from './authentication';
+import RecipeStore from './model/recipeStore';
 import webpack from 'webpack';
 import webpackConfig from '../webpack.config.js';
 import webpackDevMiddleware from "webpack-dev-middleware";
+import { readFile } from "fs";
 
 const BUNDLE_FILE_NAME = "bundle.js";
 
 const app = express();
 const port = process.env.PORT || 3000;
+
+setUpAuthentication(app);
 
 app.set('view engine', 'ejs');
 
@@ -45,14 +48,41 @@ app.get('/', (request, response) => {
     // doing paging/slicing and load more when scrolling.
     const recipeSeed = recipeStore.getAll().map(
         recipe => recipe.serialize(true /* summaryOnly */)).join('#');
-    response.render('home', { bundleUrl: '/' + BUNDLE_FILE_NAME, initialRecipeData: recipeSeed });
+    response.render('home', {
+        bundleUrl: '/' + BUNDLE_FILE_NAME,
+        initialRecipeData: recipeSeed,
+        user: request.user
+    });
+});
+
+app.get('/lists', checkAuthenticated, (request, response) => {
+});
+
+app.get('/login', (request, response) => {
+    response.render('login', {
+        bundleUrl: '/' + BUNDLE_FILE_NAME,
+        initialRecipeData: '',
+        user: '',
+    });
+});
+
+
+app.get('/logout', function(req, res, next) {
+    req.logout((err) => {
+      if (err) { return next(err); }
+      res.redirect('/');
+    });
 });
 
 // Recipe page as initial page load
 app.get('/:recipeId', (request, response) => {
     const recipe = recipeStore.getById(request.params.recipeId);
     if (recipe) {
-        response.render('home', { bundleUrl: '/' + BUNDLE_FILE_NAME, initialRecipeData: recipe.serialize() });
+        response.render('home', {
+            bundleUrl: '/' + BUNDLE_FILE_NAME,
+            initialRecipeData: recipe.serialize(),
+            user: request.user,
+         });
     } else {
         response.status(404).end();
     }
@@ -72,6 +102,10 @@ app.get('/r/:recipeId', (request, response) => {
     } else {
         response.status(404);
     }
+});
+
+app.get('/d/lists', checkAuthenticated, (request, response) => {
+    response.send('Booh');
 });
 
 app.listen(port, () => { console.log(`Listening on port ${port}. Ctrl-C to exit.`) });

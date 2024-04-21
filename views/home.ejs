@@ -1,20 +1,3 @@
-<!DOCTYPE html>
-
-<html lang="en">
-  <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Recipe Realm</title>
-    <link rel="stylesheet" href="/css/styles.css" />
-    <script src="<%= bundleUrl %>" defer></script>
-    <script>globalThis['initialRecipeData'] = "<%- initialRecipeData %>";</script>
-  </head>
-
-  <body>
-    <nav>
-        <span data-target="/">Home</span>
-        <span data-target="lists">My Lists</span>
-        <span>Log out</span>
-    </nav>
-    <div id="content"></div>
-  </body>
-</html>
+<%- include('head.ejs') %>
+<div id="content"></div>
+<%- include('foot.ejs') %>

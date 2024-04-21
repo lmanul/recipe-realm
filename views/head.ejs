@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Recipe Realm</title>
+    <link rel="stylesheet" href="/css/styles.css" />
+    <script src="<%= bundleUrl %>" defer></script>
+    <script>globalThis['initialRecipeData'] = "<%- initialRecipeData %>";</script>
+  </head>
+
+  <body>
+    <nav>
+        <span data-target="/">Home</span>
+        <span data-target="lists">My Lists</span>
+        <% if (user) { %>
+            <span><%= user %>&nbsp;&nbsp;&nbsp;<a href="/logout">Log out</a></span>
+        <% } else { %>
+            <span><a href="/login">Log in</a></span>
+        <% } %>
+    </nav>

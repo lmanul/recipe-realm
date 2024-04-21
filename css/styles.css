@@ -6,6 +6,8 @@ body {
   font-family: Roboto;
 }
 
+/* Recipe list */
+
 .recipe-list {
   display: flex;
   flex-direction: row;
@@ -33,4 +35,18 @@ body {
 
 .recipe-tile span {
   display: block;
+}
+
+/* Recipe details page */
+
+.recipe-header {
+  display: flex;
+}
+
+.recipe-header-text, .recipe-body {
+  margin: 2ex;
+}
+
+.recipe-body li {
+  margin: 1.5ex;
 }

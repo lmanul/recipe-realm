@@ -14,14 +14,16 @@ export default class RecipeHeader implements Component {
         header.classList.add('recipe-header');
         header.innerHTML = `
             <img src="/img/${this.recipe.id}.jpg">
-            <h2>${this.recipe.name}</h2>
-            <span class="recipe-source">
-              <a href="${this.recipe.url}" target="_new">By ${this.recipe.author}</a>
-            </span>
-            <h3>Ingredients</h3>
-            <ul>
-              ${this.recipe.ingredients.map(ing => '<li>' + ing + '</li>').join('\n')}
-            </ul>
+            <div class="recipe-header-text">
+              <h2>${this.recipe.name}</h2>
+              <span class="recipe-source">
+                <a href="${this.recipe.url}" target="_new">By ${this.recipe.author}</a>
+              </span>
+              <h3>Ingredients</h3>
+              <ul>
+                ${this.recipe.ingredients.map(ing => '<li>' + ing + '</li>').join('\n')}
+              </ul>
+            </div>
         `;
         return header;
     }

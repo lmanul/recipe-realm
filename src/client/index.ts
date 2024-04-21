@@ -2,6 +2,7 @@ import Home from '../client/pages/home';
 import Recipe from "../model/recipe";
 import RecipePage from './pages/recipePage';
 import RecipeStore from '../model/recipeStore';
+import PageStore from './pageStore';
 
 // Did we get initial data from the server? If so, populate our store
 // with that.
@@ -25,7 +26,6 @@ if (globalThis['initialRecipeData']) {
     }
 }
 
-globalThis.addEventListener('popstate', (data) => {
-    // TODO: Handle back navigation properly.
-    console.log('State popped', data);
+globalThis.addEventListener('popstate', (event) => {
+    PageStore.getInstance().get(event.state.path).navigate();
 });

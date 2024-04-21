@@ -1,5 +1,7 @@
 /** @file A common class for pages of the application. */
 
+import PageStore from "../pageStore";
+
 export default class Page {
 
     // Performs any necessary steps to load data from the server before rendering this page.
@@ -14,8 +16,9 @@ export default class Page {
     public navigate() {
         this.load().then(() => {
             const title = this.getTitle();
+            PageStore.getInstance().add(this.getPath(), this);
             globalThis.document.title = (title ? title + ' | ' : '') + 'Recipe Realm';
-            history.pushState({}, '', globalThis.location.origin + '/' + this.getPath());
+            history.pushState({path: this.getPath()}, '', globalThis.location.origin + '/' + this.getPath());
             document.getElementById('content').replaceChildren(this.render());
         })
     }

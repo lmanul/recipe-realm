@@ -23,7 +23,7 @@ export default class ListsPage extends Page {
     }
 
     public getPath(): string {
-        return 'lists';
+        return '/lists';
     }
 
     public getTitle(): string {

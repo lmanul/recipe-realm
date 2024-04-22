@@ -27,7 +27,7 @@ export default class RecipePage extends Page {
     }
 
     public getPath() {
-        return this.recipe.id;
+        return '/' + this.recipe.id;
     }
 
     public getTitle() {

@@ -18,13 +18,12 @@ export default class Page {
             const title = this.getTitle();
             PageStore.getInstance().add(this.getPath(), this);
             globalThis.document.title = (title ? title + ' | ' : '') + 'Recipe Realm';
-            history.pushState({path: this.getPath()}, '', globalThis.location.origin + '/' + this.getPath());
+            history.pushState({path: this.getPath()}, '', globalThis.location.origin + this.getPath());
             document.getElementById('content').replaceChildren(this.render());
         })
     }
 
     // Returns the URL path for this page, for history management purposes.
-    // Returns the empty string for the root page.
     public getPath(): string {
         return '';
     }

@@ -67,6 +67,8 @@ app.get('/', (request, response) => {
 });
 
 app.get('/lists', checkAuthenticated, (request, response) => {
+    response.render('home',
+        populateCommonTemplateData(request, {}, true /* includeRecipeList */));
 });
 
 app.get('/login', (request, response) => {

@@ -1,43 +1,55 @@
 import Home from '../client/pages/home';
 import ListsPage from './pages/listsPage';
 import PageStore from './pageStore';
-import Recipe from "../model/recipe";
+import Recipe from '../model/recipe';
 import RecipePage from './pages/recipePage';
 import RecipeStore from '../model/recipeStore';
 
 // Initialize the pages reachable from the nav bar.
 const pageStore = PageStore.getInstance();
 pageStore.add('/', new Home());
-pageStore.add('lists', new ListsPage());
+pageStore.add('/lists', new ListsPage());
+
+const recipeStore = RecipeStore.getInstance();
+let pageToLoad;
 
 // Did we get initial data from the server? If so, populate our store
 // with that.
-
 if (globalThis['recipeListData']) {
     const data = globalThis['recipeListData'];
-    const recipeStore = RecipeStore.getInstance();
     const recipeStrings = data.split('#');
     for (const recipeString of recipeStrings) {
         const [id, name] = recipeString.split('|');
         const recipe = new Recipe(name, id);
         recipeStore.add(recipe);
     }
-
-    // TODO: Nicer page-store-like mechanism to distinguish pages.
+    // If we got recipe details data, load the recipe page.
     if (globalThis['recipeDetailsData']) {
         const data = globalThis['recipeDetailsData'];
         const recipe = Recipe.deserialize(data);
         recipeStore.add(recipe);
-        new RecipePage(recipe.id).navigate();
+        pageToLoad = new RecipePage(recipe.id);
     } else {
-        new Home().navigate();
+        pageToLoad = PageStore.getInstance().get(globalThis.location.pathname);
+        if (!pageToLoad) {
+            console.warn(
+                'Could not look up page by path ' + globalThis.location.pathname
+            );
+        }
     }
-}
 
+    // If we still don't know where to go, load the home page.
+    if (!pageToLoad) {
+        pageToLoad = new Home();
+    }
+    pageToLoad.navigate();
+}
 
 document.querySelector('nav').addEventListener('click', (event) => {
     if (event.target instanceof HTMLElement) {
-        PageStore.getInstance().get(event.target.getAttribute('data-target')).navigate();
+        PageStore.getInstance()
+            .get(event.target.getAttribute('data-target'))
+            .navigate();
     }
 });
 

@@ -17,4 +17,8 @@ export default class Home extends Page {
         page.appendChild(recipeList);
         return page;
     }
+
+    public getPath(): string {
+        return '/';
+    }
 }

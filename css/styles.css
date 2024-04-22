@@ -29,6 +29,10 @@ nav {
   padding: 3ex;
 }
 
+.nav-item::first-letter {
+  font-size: x-large;
+}
+
 .nav-item:hover {
   background-color: #dc8a67;
   color: white;

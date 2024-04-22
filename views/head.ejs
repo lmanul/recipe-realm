@@ -18,14 +18,14 @@
   <body>
     <nav>
       <div id="nav-menu">
-        <span class="nav-item" data-target="/">Home</span>
-        <span class="nav-item" data-target="/lists">My Lists</span>
+        <span class="nav-item" data-target="/">🍜 Home</span>
+        <span class="nav-item" data-target="/lists">📜 My Lists</span>
       </div>
       <div id="nav-user">
         <% if (user) { %>
             <div>
               <span class="logged-in-user"><%= user %></span>
-              <a class="nav-item" href="/logout">Log out</a>
+              <a class="nav-item" href="/logout">❎ Log out</a>
             </div>
         <% } else { %>
             <a class="nav-item" href="/login">Log in</a>

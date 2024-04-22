@@ -11,6 +11,19 @@ export default class RecipeList implements Component {
         this.recipeList = recipeList;
     }
 
+    private attachEvents(el: HTMLElement) {
+        const deleteButtons = el.querySelectorAll('.inline-delete');
+        for (const btn of deleteButtons) {
+            btn.addEventListener('click', event => {
+                if (event.target instanceof HTMLElement) {
+                    const recipeId = event.target.getAttribute('data-recipe');
+                    console.log(`TODO, remove recipe ${recipeId} from list ${this.recipeList.id}`);
+                    event.stopPropagation();
+                }
+            });
+        }
+    }
+
     public render() {
         const store = RecipeStore.getInstance();
         const container = document.createElement('div');
@@ -23,6 +36,7 @@ export default class RecipeList implements Component {
             tiles.appendChild(new RecipeTile(r, true /* allowDelete */).render());
         });
         container.appendChild(tiles);
+        this.attachEvents(container);
         return container;
     }
 }

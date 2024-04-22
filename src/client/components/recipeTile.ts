@@ -26,7 +26,10 @@ export default class RecipeTile implements Component {
         tile.innerHTML = `
             <div style="position: relative">
               <img src="/img/${this.recipe.id}.jpg" loading="lazy" />
-              ${this.allowDelete ? '<div class="inline-delete" title="Remove">❌</div>' : ''}
+              ${this.allowDelete
+                  ? '<div class="inline-delete" data-recipe="' + this.recipe.id + '" title="Remove">❌</div>'
+                  : ''
+              }
             </div>
             <span>${this.recipe.name}</span>
         `;

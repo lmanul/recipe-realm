@@ -8,7 +8,7 @@ export default class RecipeList extends Component {
 
     private readonly recipeList;
 
-    public constructor(recipeList: RecipeListModel, id?: string) {
+    public constructor(recipeList: RecipeListModel, id?: string, modifiable?: boolean) {
         super();
         this.recipeList = recipeList;
     }
@@ -39,8 +39,13 @@ export default class RecipeList extends Component {
     public render() {
         const store = RecipeStore.getInstance();
         this.element = document.createElement('div');
+        this.element.classList.add('recipe-list-and-name');
         this.element.innerHTML = `
-          <h3>${this.recipeList.name}</h3>
+          <h3 class="recipe-list-name">${this.recipeList.name}</h3>
+          <form action="/d/addtolist" method="get">
+            <input placeholder="Recipe name"></input>
+            <button class="add-to-list-button">➕ Add recipe</button>
+          </form>
         `;
         const tiles = document.createElement('div');
         tiles.classList.add('recipe-list');

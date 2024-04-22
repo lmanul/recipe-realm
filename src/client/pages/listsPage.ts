@@ -1,5 +1,6 @@
 import { RecipeListBundle } from "../../model/recipeList";
 import RecipeListStore from "../../model/recipeListStore";
+import RecipeList from "../components/recipeList";
 import Page from "./page";
 
 export default class ListsPage extends Page {
@@ -15,8 +16,7 @@ export default class ListsPage extends Page {
                         const user = globalThis['user'];
                         RecipeListStore.getInstance().setBundleForUser(
                             RecipeListBundle.deserialize(data),
-                            user
-                        );
+                            user);
                     });
                 }
             });
@@ -25,6 +25,9 @@ export default class ListsPage extends Page {
 
     public render() {
         const container = document.createElement('div');
+        RecipeListStore.getInstance().bundleForUser(globalThis['user']).recipeLists.map(l => {
+            container.appendChild(new RecipeList(l).render());
+        })
         return container;
     }
 

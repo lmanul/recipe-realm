@@ -18,5 +18,4 @@ export default class Component {
             currentEl.parentElement.replaceChild(newVersion, currentEl);
         }
     }
-
 }

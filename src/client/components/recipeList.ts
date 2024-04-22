@@ -18,8 +18,10 @@ export default class RecipeList extends Component {
         for (const btn of deleteButtons) {
             btn.addEventListener('click', event => {
                 if (event.target instanceof HTMLElement) {
-                    // Optimistic local update: remove this recipe from the list
                     const recipeId = event.target.getAttribute('data-recipe');
+                    // Notify server
+                    fetch(`/d/removefromlist/${this.recipeList.id}/${recipeId}`);
+                    // Optimistic local update: remove this recipe from the list
                     const arrayToMutate = RecipeListStore.getInstance().bundleForUser(
                         globalThis['user']).recipeLists.get(this.recipeList.id).recipeIds;
                     const index = arrayToMutate.indexOf(recipeId);

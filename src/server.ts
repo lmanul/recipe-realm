@@ -1,13 +1,13 @@
 import express from 'express';
+import RecipeListStore from './model/recipeListStore';
 import RecipeStore from './model/recipeStore';
-import { seedRecipeData, seedUserListData } from './dataSeed';
 import webpack from 'webpack';
 import webpackConfig from '../webpack.config.js';
 import webpackDevMiddleware from "webpack-dev-middleware";
 import { checkAuthenticated, setUpAuthentication, users } from './authentication';
 import { readFile } from "fs";
-import { RecipeListBundle } from './model/recipeList';
-import RecipeListStore from './model/recipeListStore';
+import { RecipeList, RecipeListBundle } from './model/recipeList';
+import { seedRecipeData, seedUserListData } from './dataSeed';
 
 const BUNDLE_FILE_NAME = "bundle.js";
 
@@ -123,6 +123,13 @@ app.get('/d/lists', checkAuthenticated, (request, response) => {
 app.get('/d/newlist', checkAuthenticated, (request, response) => {
     RecipeListStore.getInstance().newListForUser(request.user, request.query.listname, request.query.recipeid);
     response.redirect('/lists');
+});
+
+app.get('/d/removefromlist/:listId/:recipeId', checkAuthenticated, (request, response) => {
+    const list: RecipeList = RecipeListStore.getInstance().bundleForUser(request.user).getListById(request.params.listId);
+    if (list) {
+        list.remove(request.params.recipeId);
+    }
 });
 
 app.listen(port, () => { console.log(`Listening on port ${port}. Ctrl-C to exit.`) });

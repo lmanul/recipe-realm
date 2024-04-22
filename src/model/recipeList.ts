@@ -17,6 +17,21 @@ export class RecipeList {
         this.id = id || generateId();
     }
 
+    public add(recipeId: string) {
+        // Don't add duplicates.
+        const index = this.recipeIds.indexOf(recipeId);
+        if (index == -1) {
+            this.recipeIds.push(recipeId);
+        }
+    }
+
+    public remove(recipeId: string) {
+        const index = this.recipeIds.indexOf(recipeId);
+        if (index != -1) {
+            this.recipeIds.splice(index, 1);
+        }
+    }
+
     public serialize() {
         return this.id + '|' + this.name + '|' + this.recipeIds.join('|');
     }
@@ -41,6 +56,10 @@ export class RecipeListBundle {
 
     public constructor() {
         this.recipeLists = new Map();
+    }
+
+    public getListById(listId) {
+        return this.recipeLists.get(listId);
     }
 
     public serialize() {

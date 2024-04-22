@@ -11,11 +11,15 @@
 
   <body>
     <nav>
+      <div id="nav-menu">
         <span data-target="/">Home</span>
         <span data-target="lists">My Lists</span>
+      </div>
+      <div id="nav-user">
         <% if (user) { %>
             <span><%= user %>&nbsp;&nbsp;&nbsp;<a href="/logout">Log out</a></span>
         <% } else { %>
             <span><a href="/login">Log in</a></span>
         <% } %>
+      </div>
     </nav>

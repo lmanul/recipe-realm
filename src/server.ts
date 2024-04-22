@@ -1,9 +1,10 @@
 import express from 'express';
-import { checkAuthenticated, setUpAuthentication } from './authentication';
 import RecipeStore from './model/recipeStore';
+import seedData from './dataSeed';
 import webpack from 'webpack';
 import webpackConfig from '../webpack.config.js';
 import webpackDevMiddleware from "webpack-dev-middleware";
+import { checkAuthenticated, setUpAuthentication } from './authentication';
 import { readFile } from "fs";
 
 const BUNDLE_FILE_NAME = "bundle.js";
@@ -15,8 +16,8 @@ setUpAuthentication(app);
 
 app.set('view engine', 'ejs');
 
-// In production, we rely on the pre-compiled bundles (one per
-// language). In development, recompile on the fly.
+// In production, we rely on the pre-compiled bundle. In development,
+// recompile on the fly.
 const isProd = process.env.MODE === 'production';
 if (isProd) {
     app.get("/" + BUNDLE_FILE_NAME, async (req, res) => {
@@ -30,9 +31,9 @@ if (isProd) {
     app.use(webpackDevMiddleware(webpack(webpackConfig)));
 }
 
-// Initialize our data before getting ready to serve anything.
+// Initialize our data first.
+seedData();
 const recipeStore = RecipeStore.getInstance();
-recipeStore.initializeFromStoredData();
 
 // Static routes
 

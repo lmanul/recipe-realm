@@ -21,19 +21,6 @@ export default class RecipeStore {
         return RecipeStore.instance;
     }
 
-    // Populate this store with data from the on-disk JSON. This is only
-    // relevant on the server.
-    public initializeFromStoredData() {
-        import('../../data/recipes.json', { assert: { type: "json" } }).then((data) => {
-            const allRecipes: Array<Recipe> = data.default.map((item) => new Recipe(
-                item.Name, null, item.url, item.Author, item.Description, item.Ingredients, item.Method
-            ));
-            for (const recipe of allRecipes) {
-                this.add(recipe);
-            }
-        });
-    }
-
     public add(recipe: Recipe) {
         const existing = this.allRecipes.get(recipe.id);
         // If we already have this recipe and all its details,

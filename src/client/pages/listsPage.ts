@@ -4,8 +4,15 @@ export default class ListsPage extends Page {
 
     public load() {
         return super.load().then(() => {
-            return fetch('/d/lists').then(data => {
-                console.log(data);
+            return fetch('/d/lists').then(response => {
+                if (response.redirected) {
+                    // We need to log in first.
+                    globalThis.location.href = '/login';
+                } else {
+                    return response.text().then(data => {
+                        console.log(data);
+                    });
+                }
             });
         });
     }

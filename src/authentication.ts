@@ -38,7 +38,6 @@ const checkAuthenticated = (req, res, next) => {
     if (req.isAuthenticated()) {
       return next();
     }
-    // req.logOut();
     res.redirect("/login");
 };
 

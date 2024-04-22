@@ -10,7 +10,7 @@ const generateId = () => {
 export class RecipeList {
     public name: string;
     public recipeIds: Array<string>;
-    private readonly id;
+    public readonly id;
 
     public constructor(id?: string) {
         this.recipeIds = [];
@@ -37,14 +37,14 @@ export class RecipeList {
 }
 
 export class RecipeListBundle {
-    public recipeLists: Array<RecipeList>;
+    public recipeLists: Map<string, RecipeList>;
 
     public constructor() {
-        this.recipeLists = [];
+        this.recipeLists = new Map();
     }
 
     public serialize() {
-        return this.recipeLists.map(l => l.serialize()).join('#');
+        return Array.from(this.recipeLists.values()).map(l => l.serialize()).join('#');
     }
 
     public static deserialize(canned: string): RecipeListBundle {
@@ -52,7 +52,8 @@ export class RecipeListBundle {
         if (canned) {
             const listStrings = canned.split('#');
             for (const listStr of listStrings) {
-                b.recipeLists.push(RecipeList.deserialize(listStr));
+                const l = RecipeList.deserialize(listStr)
+                b.recipeLists.set(l.id, l);
             }
         }
         return b;

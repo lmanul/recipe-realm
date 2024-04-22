@@ -1,18 +1,19 @@
 import Component from './component';
 import Recipe from '../../model/recipe';
 
-export default class RecipeHeader implements Component {
+export default class RecipeHeader extends Component {
 
     private readonly recipe: Recipe;
 
     public constructor(recipe: Recipe) {
+        super();
         this.recipe = recipe;
     }
 
     public render() {
-        const header = document.createElement('div');
-        header.classList.add('recipe-header');
-        header.innerHTML = `
+        this.element = document.createElement('div');
+        this.element.classList.add('recipe-header');
+        this.element.innerHTML = `
             <img src="/img/${this.recipe.id}.jpg" />
             <div class="recipe-header-text">
               <h2>${this.recipe.name}</h2>
@@ -25,6 +26,6 @@ export default class RecipeHeader implements Component {
               </ul>
             </div>
         `;
-        return header;
+        return this.element;
     }
 }

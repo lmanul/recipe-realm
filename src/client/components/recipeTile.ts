@@ -4,26 +4,27 @@ import Recipe from "../../model/recipe";
 import Component from "./component";
 import RecipePage from "../pages/recipePage";
 
-export default class RecipeTile implements Component {
+export default class RecipeTile extends Component {
     public readonly recipe: Recipe;
     public readonly allowDelete: boolean;
 
     public constructor(recipe: Recipe, allowDelete?: boolean) {
+        super();
         this.recipe = recipe;
         this.allowDelete = !!allowDelete;
     }
 
-    private attachEvents(tile: HTMLElement) {
+    attachEvents() {
         // When a tile is clicked, navigate to the corresponding details page.
-        tile.addEventListener('click', () => {
+        this.element.addEventListener('click', () => {
             new RecipePage(this.recipe.id).navigate();
         });
     }
 
     public render(): HTMLElement {
-        const tile = document.createElement('div');
-        tile.classList.add('recipe-tile');
-        tile.innerHTML = `
+        this.element = document.createElement('div');
+        this.element.classList.add('recipe-tile');
+        this.element.innerHTML = `
             <div style="position: relative">
               <img src="/img/${this.recipe.id}.jpg" loading="lazy" />
               ${this.allowDelete
@@ -33,7 +34,7 @@ export default class RecipeTile implements Component {
             </div>
             <span>${this.recipe.name}</span>
         `;
-        this.attachEvents(tile);
-        return tile;
+        this.attachEvents();
+        return this.element;
     };
 }

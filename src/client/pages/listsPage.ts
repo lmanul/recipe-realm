@@ -32,7 +32,8 @@ export default class ListsPage extends Page {
             <button>➕ New List</button>
           </form>
         `;
-        RecipeListStore.getInstance().bundleForUser(globalThis['user']).recipeLists.map(l => {
+        Array.from(RecipeListStore.getInstance().bundleForUser(
+                globalThis['user']).recipeLists.values()).map(l => {
             container.appendChild(new RecipeList(l).render());
         })
         return container;

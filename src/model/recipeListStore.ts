@@ -31,6 +31,6 @@ export default class RecipeListStore {
         if (firstRecipeId) {
             newList.recipeIds.push(firstRecipeId);
         }
-        bundle.recipeLists.push(newList);
+        bundle.recipeLists.set(newList.id, newList);
     }
 }

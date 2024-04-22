@@ -1,24 +1,34 @@
 import Component from "./component";
 import RecipeTile from "./recipeTile";
 import RecipeStore from "../../model/recipeStore";
+import RecipeListStore from "../../model/recipeListStore";
 import { RecipeList as RecipeListModel} from '../../model/recipeList';
 
-export default class RecipeList implements Component {
+export default class RecipeList extends Component {
 
     private readonly recipeList;
 
     public constructor(recipeList: RecipeListModel, id?: string) {
+        super();
         this.recipeList = recipeList;
     }
 
-    private attachEvents(el: HTMLElement) {
-        const deleteButtons = el.querySelectorAll('.inline-delete');
+    attachEvents() {
+        const deleteButtons = this.element.querySelectorAll('.inline-delete');
         for (const btn of deleteButtons) {
             btn.addEventListener('click', event => {
                 if (event.target instanceof HTMLElement) {
+                    // Optimistic local update: remove this recipe from the list
                     const recipeId = event.target.getAttribute('data-recipe');
-                    console.log(`TODO, remove recipe ${recipeId} from list ${this.recipeList.id}`);
+                    const arrayToMutate = RecipeListStore.getInstance().bundleForUser(
+                        globalThis['user']).recipeLists.get(this.recipeList.id).recipeIds;
+                    const index = arrayToMutate.indexOf(recipeId);
+                    if (index > -1) {
+                        arrayToMutate.splice(index, 1);
+                    }
+                    // Don't bubble up.
                     event.stopPropagation();
+                    this.refresh();
                 }
             });
         }
@@ -26,8 +36,8 @@ export default class RecipeList implements Component {
 
     public render() {
         const store = RecipeStore.getInstance();
-        const container = document.createElement('div');
-        container.innerHTML = `
+        this.element = document.createElement('div');
+        this.element.innerHTML = `
           <h3>${this.recipeList.name}</h3>
         `;
         const tiles = document.createElement('div');
@@ -35,8 +45,8 @@ export default class RecipeList implements Component {
         this.recipeList.recipeIds.map(i => store.getById(i)).map(r => {
             tiles.appendChild(new RecipeTile(r, true /* allowDelete */).render());
         });
-        container.appendChild(tiles);
-        this.attachEvents(container);
-        return container;
+        this.element.appendChild(tiles);
+        this.attachEvents();
+        return this.element;
     }
 }

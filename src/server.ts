@@ -62,6 +62,7 @@ const populateCommonTemplateData = (request, dataObj: Object,
 
 app.use('/img', express.static('img'));
 app.use('/css', express.static('css'));
+app.use('/s', express.static('static'));
 
 // User-visible routes
 
@@ -100,11 +101,6 @@ app.get('/:recipeId', (request, response) => {
     } else {
         response.status(404).end();
     }
-});
-
-app.get('/favicon.ico', (request, response) => {
-    // TODO: Add a favicon.
-    response.status(404).end();
 });
 
 // Data-only routes

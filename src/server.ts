@@ -35,6 +35,14 @@ if (isProd) {
 seedData();
 const recipeStore = RecipeStore.getInstance();
 
+const populateCommonTemplateData = (request, dataObj: Object) => {
+    return {
+        ...dataObj,
+        bundleUrl: '/' + BUNDLE_FILE_NAME,
+        user: request?.user || '',
+    }
+};
+
 // Static routes
 
 app.use('/img', express.static('img'));
@@ -49,23 +57,19 @@ app.get('/', (request, response) => {
     // doing paging/slicing and load more when scrolling.
     const recipeSeed = recipeStore.getAll().map(
         recipe => recipe.serialize(true /* summaryOnly */)).join('#');
-    response.render('home', {
-        bundleUrl: '/' + BUNDLE_FILE_NAME,
+    response.render('home', populateCommonTemplateData(request, {
         initialRecipeData: recipeSeed,
-        user: request.user
-    });
+    }));
 });
 
 app.get('/lists', checkAuthenticated, (request, response) => {
 });
 
 app.get('/login', (request, response) => {
-    response.render('login', {
-        bundleUrl: '/' + BUNDLE_FILE_NAME,
+    response.render('login', populateCommonTemplateData(request, {
         initialRecipeData: '',
-        user: '',
         availableUsers: users,
-    });
+    }));
 });
 
 
@@ -80,11 +84,9 @@ app.get('/logout', function(req, res, next) {
 app.get('/:recipeId', (request, response) => {
     const recipe = recipeStore.getById(request.params.recipeId);
     if (recipe) {
-        response.render('home', {
-            bundleUrl: '/' + BUNDLE_FILE_NAME,
+        response.render('home', populateCommonTemplateData(request, {
             initialRecipeData: recipe.serialize(),
-            user: request.user,
-         });
+         }));
     } else {
         response.status(404).end();
     }

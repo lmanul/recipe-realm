@@ -45,8 +45,8 @@ export default class Recipe {
     }
 
     // Returns an instance of Recipe deserialized from a string representation.
-    public static deserialize(raw: string) {
-        const pieces: Array<string> = raw.split('|');
+    public static deserialize(canned: string) {
+        const pieces: Array<string> = canned.split('|');
         if (pieces.length == 2) {
             return new Recipe(pieces[1], pieces[0]);
         } else if (pieces.length == 7) {
@@ -55,7 +55,7 @@ export default class Recipe {
             );
         }
         // Still here? Not cool.
-        throw new Error('Could not deserialize ' + raw);
+        throw new Error('Could not deserialize ' + canned);
     }
 
     // Returns whether this object contains all the recipe details (false if

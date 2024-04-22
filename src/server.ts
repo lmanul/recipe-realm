@@ -1,11 +1,13 @@
 import express from 'express';
 import RecipeStore from './model/recipeStore';
-import seedData from './dataSeed';
+import { seedRecipeData, seedUserListData } from './dataSeed';
 import webpack from 'webpack';
 import webpackConfig from '../webpack.config.js';
 import webpackDevMiddleware from "webpack-dev-middleware";
 import { checkAuthenticated, setUpAuthentication, users } from './authentication';
 import { readFile } from "fs";
+import { RecipeListBundle } from './model/recipeList';
+import RecipeListStore from './model/recipeListStore';
 
 const BUNDLE_FILE_NAME = "bundle.js";
 
@@ -33,7 +35,7 @@ if (isProd) {
 
 // Initialize our data first.
 let recipeListData;
-seedData().then(() => {
+seedRecipeData().then(() => {
     // Construct an initial piece of data for the client to render immediately.
     // All recipes in a "summary" state add up to ~60 kb so it's not worth
     // doing paging/slicing and load more when scrolling.
@@ -42,12 +44,15 @@ seedData().then(() => {
 });
 const recipeStore = RecipeStore.getInstance();
 
+seedUserListData();
+
 const populateCommonTemplateData = (request, dataObj: Object,
         includeRecipeList?: boolean) => {
     return {
         bundleUrl: '/' + BUNDLE_FILE_NAME,
         recipeListData: includeRecipeList ? recipeListData : '',
         recipeDetailsData: '',
+        userListData: '',
         user: request?.user || '',
         ...dataObj,
     }
@@ -114,7 +119,7 @@ app.get('/r/:recipeId', (request, response) => {
 });
 
 app.get('/d/lists', checkAuthenticated, (request, response) => {
-    response.send('Booh');
+    response.send(RecipeListStore.getInstance().bundleForUser(request.user)?.serialize());
 });
 
 app.listen(port, () => { console.log(`Listening on port ${port}. Ctrl-C to exit.`) });

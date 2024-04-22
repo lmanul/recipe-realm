@@ -1,5 +1,3 @@
-import Home from "./pages/home";
-import ListsPage from "./pages/listsPage";
 import Page from "./pages/page";
 
 export default class PageStore {

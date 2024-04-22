@@ -6,8 +6,12 @@
     <title>Recipe Realm</title>
     <link rel="stylesheet" href="/css/styles.css" />
     <script src="<%= bundleUrl %>" defer></script>
-    <script>globalThis['recipeListData'] = "<%- recipeListData %>";</script>
-    <script>globalThis['recipeDetailsData'] = "<%- recipeDetailsData %>";</script>
+    <script>
+        globalThis['user'] = "<%- user %>";
+        globalThis['recipeListData'] = "<%- recipeListData %>";
+        globalThis['recipeDetailsData'] = "<%- recipeDetailsData %>";
+        globalThis['userListData'] = "<%- userListData %>";
+    </script>
   </head>
 
   <body>

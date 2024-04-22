@@ -1,3 +1,5 @@
+import { RecipeListBundle } from "../../model/recipeList";
+import RecipeListStore from "../../model/recipeListStore";
 import Page from "./page";
 
 export default class ListsPage extends Page {
@@ -10,7 +12,11 @@ export default class ListsPage extends Page {
                     globalThis.location.href = '/login';
                 } else {
                     return response.text().then(data => {
-                        console.log(data);
+                        const user = globalThis['user'];
+                        RecipeListStore.getInstance().setBundleForUser(
+                            RecipeListBundle.deserialize(data),
+                            user
+                        );
                     });
                 }
             });

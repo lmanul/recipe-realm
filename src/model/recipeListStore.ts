@@ -1,12 +1,12 @@
-import RecipeList from "./recipeList";
+import { RecipeListBundle } from "./recipeList";
 
 export default class RecipeListStore {
     private static instance: RecipeListStore;
-    // Recipe lists, keyed by username.
-    private lists: Map<string, Array<RecipeList>>;
+    // Recipe list bundles, keyed by username.
+    private bundles: Map<string, RecipeListBundle>;
 
     private constructor() {
-        this.lists = new Map();
+        this.bundles = new Map();
     };
 
     public static getInstance(): RecipeListStore {
@@ -14,5 +14,13 @@ export default class RecipeListStore {
             RecipeListStore.instance = new RecipeListStore();
         }
         return RecipeListStore.instance;
+    }
+
+    public setBundleForUser(bundle: RecipeListBundle, username: string) {
+        this.bundles.set(username, bundle);
+    }
+
+    public bundleForUser(username: string) {
+        return this.bundles.get(username);
     }
 }

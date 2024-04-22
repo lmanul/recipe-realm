@@ -32,14 +32,24 @@ if (isProd) {
 }
 
 // Initialize our data first.
-seedData();
+let recipeListData;
+seedData().then(() => {
+    // Construct an initial piece of data for the client to render immediately.
+    // All recipes in a "summary" state add up to ~60 kb so it's not worth
+    // doing paging/slicing and load more when scrolling.
+    recipeListData = recipeStore.getAll().map(
+        recipe => recipe.serialize(true /* summaryOnly */)).join('#');
+});
 const recipeStore = RecipeStore.getInstance();
 
-const populateCommonTemplateData = (request, dataObj: Object) => {
+const populateCommonTemplateData = (request, dataObj: Object,
+        includeRecipeList?: boolean) => {
     return {
-        ...dataObj,
         bundleUrl: '/' + BUNDLE_FILE_NAME,
+        recipeListData: includeRecipeList ? recipeListData : '',
+        recipeDetailsData: '',
         user: request?.user || '',
+        ...dataObj,
     }
 };
 
@@ -52,14 +62,8 @@ app.use('/css', express.static('css'));
 
 // Home page
 app.get('/', (request, response) => {
-    // Construct an initial piece of data for the client to render immediately.
-    // All recipes in a "summary" state add up to ~60 kb so it's not worth
-    // doing paging/slicing and load more when scrolling.
-    const recipeSeed = recipeStore.getAll().map(
-        recipe => recipe.serialize(true /* summaryOnly */)).join('#');
-    response.render('home', populateCommonTemplateData(request, {
-        initialRecipeData: recipeSeed,
-    }));
+    response.render('home',
+        populateCommonTemplateData(request, {}, true /* includeRecipeList */));
 });
 
 app.get('/lists', checkAuthenticated, (request, response) => {
@@ -67,7 +71,6 @@ app.get('/lists', checkAuthenticated, (request, response) => {
 
 app.get('/login', (request, response) => {
     response.render('login', populateCommonTemplateData(request, {
-        initialRecipeData: '',
         availableUsers: users,
     }));
 });
@@ -85,8 +88,8 @@ app.get('/:recipeId', (request, response) => {
     const recipe = recipeStore.getById(request.params.recipeId);
     if (recipe) {
         response.render('home', populateCommonTemplateData(request, {
-            initialRecipeData: recipe.serialize(),
-         }));
+            recipeDetailsData: recipe.serialize(),
+         }, true /* includeRecipeList */));
     } else {
         response.status(404).end();
     }

@@ -13,24 +13,27 @@ pageStore.add('lists', new ListsPage());
 // Did we get initial data from the server? If so, populate our store
 // with that.
 
-if (globalThis['initialRecipeData']) {
-    const data = globalThis['initialRecipeData'];
+if (globalThis['recipeListData']) {
+    const data = globalThis['recipeListData'];
     const recipeStore = RecipeStore.getInstance();
+    const recipeStrings = data.split('#');
+    for (const recipeString of recipeStrings) {
+        const [id, name] = recipeString.split('|');
+        const recipe = new Recipe(name, id);
+        recipeStore.add(recipe);
+    }
+
     // TODO: Nicer page-store-like mechanism to distinguish pages.
-    if (data.includes('#')) {
-        const recipeStrings = globalThis['initialRecipeData'].split('#');
-        for (const recipeString of recipeStrings) {
-            const [id, name] = recipeString.split('|');
-            const recipe = new Recipe(name, id);
-            recipeStore.add(recipe);
-        }
-        new Home().navigate();
-    } else {
+    if (globalThis['recipeDetailsData']) {
+        const data = globalThis['recipeDetailsData'];
         const recipe = Recipe.deserialize(data);
         recipeStore.add(recipe);
         new RecipePage(recipe.id).navigate();
+    } else {
+        new Home().navigate();
     }
 }
+
 
 document.querySelector('nav').addEventListener('click', (event) => {
     if (event.target instanceof HTMLElement) {

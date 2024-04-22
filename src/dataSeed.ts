@@ -1,14 +1,14 @@
 import Recipe from './model/recipe';
 import RecipeStore from './model/recipeStore';
-import { readFile } from "fs";
+import { readFile } from "fs/promises";
 
 // Populates our recipe store with data from the on-disk JSON file.
 export default () => {
-    const recipeStore = RecipeStore.getInstance();
-    readFile('data/recipes.json', (err, data) => {
-        if (err) {
-            console.log(err);
-        } else {
+    return readFile('data/recipes.json').catch(err => {
+        console.log(err);
+    }).then(data => {
+        if (data) {
+            const recipeStore = RecipeStore.getInstance();
             const recipeObject = JSON.parse(data.toString());
             recipeObject.map(item => {
                 recipeStore.add(new Recipe(

@@ -82,6 +82,17 @@ nav {
   display: block;
 }
 
+.recipe-tile:hover .inline-delete {
+  display: block;
+}
+
+.inline-delete {
+  display: none;
+  position: absolute;
+  right: 7px;
+  top: 7px;
+}
+
 /* Recipe details page */
 
 .recipe-header {

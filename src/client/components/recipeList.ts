@@ -20,7 +20,7 @@ export default class RecipeList implements Component {
         const tiles = document.createElement('div');
         tiles.classList.add('recipe-list');
         this.recipeList.recipeIds.map(i => store.getById(i)).map(r => {
-            tiles.appendChild(new RecipeTile(r).render());
+            tiles.appendChild(new RecipeTile(r, true /* allowDelete */).render());
         });
         container.appendChild(tiles);
         return container;

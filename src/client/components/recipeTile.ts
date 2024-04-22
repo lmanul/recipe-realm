@@ -6,9 +6,11 @@ import RecipePage from "../pages/recipePage";
 
 export default class RecipeTile implements Component {
     public readonly recipe: Recipe;
+    public readonly allowDelete: boolean;
 
-    public constructor(recipe: Recipe) {
+    public constructor(recipe: Recipe, allowDelete?: boolean) {
         this.recipe = recipe;
+        this.allowDelete = !!allowDelete;
     }
 
     private attachEvents(tile: HTMLElement) {
@@ -21,8 +23,13 @@ export default class RecipeTile implements Component {
     public render(): HTMLElement {
         const tile = document.createElement('div');
         tile.classList.add('recipe-tile');
-        tile.innerHTML = `<img src="/img/${this.recipe.id}.jpg" loading="lazy" />
-            <span>${this.recipe.name}</span>`;
+        tile.innerHTML = `
+            <div style="position: relative">
+              <img src="/img/${this.recipe.id}.jpg" loading="lazy" />
+              ${this.allowDelete ? '<div class="inline-delete" title="Remove">❌</div>' : ''}
+            </div>
+            <span>${this.recipe.name}</span>
+        `;
         this.attachEvents(tile);
         return tile;
     };

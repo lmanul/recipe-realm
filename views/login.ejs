@@ -1,8 +1,8 @@
 <%- include('head.ejs') %>
 <div id="content">
     <h2>Who are you?</h2>
-    <a href="/logincallback/eiichiro">Eiichiro</a>
-    <a href="/logincallback/akira">Akira</a>
-    <a href="/logincallback/gosho">Gosho</a>
+    <% for (const user of availableUsers) { %>
+        <a href="/logincallback/<%= user %>" class="user-button"><%= user %></a>
+    <% } %>
 </div>
 <%- include('foot.ejs') %>

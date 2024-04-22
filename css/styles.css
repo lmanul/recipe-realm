@@ -11,24 +11,33 @@ body {
   margin: 1ex;
 }
 
+a {
+  text-decoration: none;
+}
+
 /* Navigation bar */
 
 nav {
   align-items: center;
   background-color: #ffc8b1;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
 }
 
-nav span {
+.nav-item {
   display: inline-block;
   padding: 3ex;
 }
 
-nav span:hover {
+.nav-item:hover {
   background-color: #dc8a67;
   color: white;
   cursor: pointer;
+}
+
+.logged-in-user {
+  display: inline-block;
+  margin-right: .5ex;
 }
 
 /* Recipe list */
@@ -90,4 +99,17 @@ nav span:hover {
 
 .recipe-body li {
   margin: 1.5ex;
+}
+
+/* Login page */
+
+.user-button {
+  background-color: #ffc8b1;
+  display: inline-block;
+  margin: 1ex;
+  padding: 2ex;
+}
+
+.user-button::first-letter, .logged-in-user::first-letter {
+  text-transform: capitalize;
 }

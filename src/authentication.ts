@@ -45,4 +45,5 @@ const checkAuthenticated = (req, res, next) => {
 export {
     checkAuthenticated,
     setUpAuthentication,
+    users,
 }

@@ -4,7 +4,7 @@ import seedData from './dataSeed';
 import webpack from 'webpack';
 import webpackConfig from '../webpack.config.js';
 import webpackDevMiddleware from "webpack-dev-middleware";
-import { checkAuthenticated, setUpAuthentication } from './authentication';
+import { checkAuthenticated, setUpAuthentication, users } from './authentication';
 import { readFile } from "fs";
 
 const BUNDLE_FILE_NAME = "bundle.js";
@@ -64,6 +64,7 @@ app.get('/login', (request, response) => {
         bundleUrl: '/' + BUNDLE_FILE_NAME,
         initialRecipeData: '',
         user: '',
+        availableUsers: users,
     });
 });
 

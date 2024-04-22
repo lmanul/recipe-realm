@@ -12,14 +12,17 @@
   <body>
     <nav>
       <div id="nav-menu">
-        <span data-target="/">Home</span>
-        <span data-target="lists">My Lists</span>
+        <span class="nav-item" data-target="/">Home</span>
+        <span class="nav-item" data-target="lists">My Lists</span>
       </div>
       <div id="nav-user">
         <% if (user) { %>
-            <span><%= user %>&nbsp;&nbsp;&nbsp;<a href="/logout">Log out</a></span>
+            <div>
+              <span class="logged-in-user"><%= user %></span>
+              <a class="nav-item" href="/logout">Log out</a>
+            </div>
         <% } else { %>
-            <span><a href="/login">Log in</a></span>
+            <a class="nav-item" href="/login">Log in</a>
         <% } %>
       </div>
     </nav>

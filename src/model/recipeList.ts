@@ -3,26 +3,33 @@
  * represents all the recipe lists for a given user.
  */
 
+const generateId = () => {
+    return Math.random().toString(36).slice(-6);
+};
+
 export class RecipeList {
     public name: string;
     public recipeIds: Array<string>;
+    private readonly id;
 
-    public constructor() {
+    public constructor(id?: string) {
         this.recipeIds = [];
+        this.id = id || generateId();
     }
 
     public serialize() {
-        return this.name + '|' + this.recipeIds.join('|');
+        return this.id + '|' + this.name + '|' + this.recipeIds.join('|');
     }
 
     public static deserialize(canned: string): RecipeList {
-        const l = new RecipeList();
         const pieces = canned.split('|');
+        const id = pieces.shift();
+        const l = new RecipeList(id);
         l.name = pieces.shift();
         while (pieces.length) {
-            const id = pieces.shift().trim();
-            if (id) {
-                l.recipeIds.push(id);
+            const recipeId = pieces.shift().trim();
+            if (recipeId) {
+                l.recipeIds.push(recipeId);
             }
         }
         return l;

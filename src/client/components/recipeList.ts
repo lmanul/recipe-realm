@@ -1,13 +1,13 @@
 import Component from "./component";
-import { RecipeList as RecipeListModel} from '../../model/recipeList';
 import RecipeTile from "./recipeTile";
 import RecipeStore from "../../model/recipeStore";
+import { RecipeList as RecipeListModel} from '../../model/recipeList';
 
 export default class RecipeList implements Component {
 
     private readonly recipeList;
 
-    public constructor(recipeList: RecipeListModel) {
+    public constructor(recipeList: RecipeListModel, id?: string) {
         this.recipeList = recipeList;
     }
 

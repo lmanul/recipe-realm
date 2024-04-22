@@ -7,6 +7,6 @@ test('Should deserialize an empty string to an empty bundle', () => {
 });
 
 test('Should deserialize a list with only a name to an empty recipe list', () => {
-    const list = RecipeList.deserialize('Awesome Recipes|');
+    const list = RecipeList.deserialize('abcd|Awesome Recipes|');
     expect(list.recipeIds.length).toBe(0);
 });

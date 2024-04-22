@@ -19,7 +19,6 @@ export default class RecipeList implements Component {
         `;
         const tiles = document.createElement('div');
         tiles.classList.add('recipe-list');
-        console.log(this.recipeList.recipeIds);
         this.recipeList.recipeIds.map(i => store.getById(i)).map(r => {
             tiles.appendChild(new RecipeTile(r).render());
         });

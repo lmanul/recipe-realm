@@ -114,8 +114,15 @@ app.get('/r/:recipeId', (request, response) => {
     }
 });
 
+// Fetches the lists for the logged in user.
 app.get('/d/lists', checkAuthenticated, (request, response) => {
     response.send(RecipeListStore.getInstance().bundleForUser(request.user)?.serialize());
+});
+
+// Creates a new list for the logged in user, optionally containing a first recipe.
+app.get('/d/newlist', checkAuthenticated, (request, response) => {
+    RecipeListStore.getInstance().newListForUser(request.user, request.query.listname, request.query.recipeid);
+    response.redirect('/lists');
 });
 
 app.listen(port, () => { console.log(`Listening on port ${port}. Ctrl-C to exit.`) });

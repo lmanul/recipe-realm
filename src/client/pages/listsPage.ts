@@ -25,6 +25,13 @@ export default class ListsPage extends Page {
 
     public render() {
         const container = document.createElement('div');
+        container.innerHTML = `
+          <form action="/d/newlist" method="get">
+            <input name="listname" autocomplete="off" placeholder="List Name"></input>
+            <input name="recipeid" type="hidden"></input>
+            <button>➕ New List</button>
+          </form>
+        `;
         RecipeListStore.getInstance().bundleForUser(globalThis['user']).recipeLists.map(l => {
             container.appendChild(new RecipeList(l).render());
         })

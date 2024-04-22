@@ -1,4 +1,4 @@
-import { RecipeListBundle } from "./recipeList";
+import { RecipeList, RecipeListBundle } from "./recipeList";
 
 export default class RecipeListStore {
     private static instance: RecipeListStore;
@@ -22,5 +22,15 @@ export default class RecipeListStore {
 
     public bundleForUser(username: string) {
         return this.bundles.get(username);
+    }
+
+    public newListForUser(username: string, listName: string, firstRecipeId?: string) {
+        const bundle = this.bundleForUser(username);
+        const newList = new RecipeList();
+        newList.name = listName;
+        if (firstRecipeId) {
+            newList.recipeIds.push(firstRecipeId);
+        }
+        bundle.recipeLists.push(newList);
     }
 }

@@ -20,7 +20,10 @@ export class RecipeList {
         const pieces = canned.split('|');
         l.name = pieces.shift();
         while (pieces.length) {
-            l.recipeIds.push(pieces.shift());
+            const id = pieces.shift().trim();
+            if (id) {
+                l.recipeIds.push(id);
+            }
         }
         return l;
     }

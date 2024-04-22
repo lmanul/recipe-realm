@@ -5,8 +5,8 @@ import session from 'express-session';
 const CustomStrategy = passportCustom.Strategy;
 
 const users = [
-    'eiichiro',
     'akira',
+    'eiichiro',
     'gosho',
 ];
 

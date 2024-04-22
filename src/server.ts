@@ -122,12 +122,15 @@ app.get('/d/lists', checkAuthenticated, (request, response) => {
 // Creates a new list for the logged in user, optionally containing a first recipe.
 app.get('/d/newlist', checkAuthenticated, (request, response) => {
     RecipeListStore.getInstance().newListForUser(request.user, request.query.listname, request.query.recipeid);
+    // TODO: Local update without re-fetching from the server.
     response.redirect('/lists');
 });
 
 app.get('/d/removefromlist/:listId/:recipeId', checkAuthenticated, (request, response) => {
     const list: RecipeList = RecipeListStore.getInstance().bundleForUser(request.user).getListById(request.params.listId);
-    if (list) {
+    if (!list) {
+        response.status(404).end();
+    } else {
         list.remove(request.params.recipeId);
     }
 });

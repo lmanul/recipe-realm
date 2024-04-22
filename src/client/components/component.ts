@@ -12,7 +12,6 @@ export default class Component {
 
     refresh() {
         if (this.element && this.element.parentElement) {
-            console.log(this.element);
             const currentEl = this.element;
             const newVersion = this.render();
             currentEl.parentElement.replaceChild(newVersion, currentEl);

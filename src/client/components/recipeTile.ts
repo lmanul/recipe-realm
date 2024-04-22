@@ -28,7 +28,8 @@ export default class RecipeTile extends Component {
             <div style="position: relative">
               <img src="/img/${this.recipe.id}.jpg" loading="lazy" />
               ${this.allowDelete
-                  ? '<div class="inline-delete" data-recipe="' + this.recipe.id + '" title="Remove">❌</div>'
+                  ? '<div class="inline-delete" data-recipe="' +
+                      this.recipe.id + '" title="Remove from this list">❌</div>'
                   : ''
               }
             </div>

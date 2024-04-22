@@ -18,10 +18,10 @@ export default class Recipe {
         this.name = name;
         this.url = url;
         this.id = id || this.calculateId();
-        this.author = author;
-        this.description = description;
-        this.ingredients = ingredients;
-        this.method = method;
+        this.author = author || '';
+        this.description = description || '';
+        this.ingredients = ingredients || [];
+        this.method = method || [];
     }
 
     private calculateId(): string {

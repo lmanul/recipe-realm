@@ -23,6 +23,7 @@ export const seedRecipeData = () => {
 
 export const seedUserListData = () => {
     return readFile('data/user_lists.txt').catch(err => {
+        console.log(err);
     }).then(data => {
         if (data) {
             const store = RecipeListStore.getInstance();

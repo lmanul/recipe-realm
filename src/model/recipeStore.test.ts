@@ -1,6 +1,6 @@
-import { expect, test, afterAll } from 'vitest';
 import RecipeStore from './recipeStore';
 import Recipe from './recipe';
+import { expect, test, afterAll } from 'vitest';
 
 afterAll(() => {
     RecipeStore.getInstance().clearAll();
@@ -16,7 +16,7 @@ test('Should be able to add and retrieve a recipe', () => {
     const recipeStore = RecipeStore.getInstance();
     expect(recipeStore.getCount()).toBe(0);
 
-    const recipe = new Recipe('Chocolate Lava Cake', 'https://allrecipes.com/chocchoccholate');
+    const recipe = new Recipe('Chocolate Lava Cake', undefined, 'https://allrecipes.com/chocchoccholate');
     recipeStore.add(recipe);
 
     expect(recipeStore.getCount()).toBe(1);

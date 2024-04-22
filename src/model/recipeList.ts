@@ -39,9 +39,11 @@ export class RecipeListBundle {
 
     public static deserialize(canned: string): RecipeListBundle {
         const b = new RecipeListBundle();
-        const listStrings = canned.split('#');
-        for (const listStr of listStrings) {
-            b.recipeLists.push(RecipeList.deserialize(listStr));
+        if (canned) {
+            const listStrings = canned.split('#');
+            for (const listStr of listStrings) {
+                b.recipeLists.push(RecipeList.deserialize(listStr));
+            }
         }
         return b;
     }

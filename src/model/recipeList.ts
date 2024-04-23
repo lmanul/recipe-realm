@@ -10,6 +10,9 @@ const generateId = () => {
 };
 
 export class RecipeList {
+
+    private static readonly SEPARATOR = '|';
+
     public name: string;
     public recipeIds: Array<string>;
     public readonly id;
@@ -43,7 +46,9 @@ export class RecipeList {
     }
 
     public serialize() {
-        return this.id + '|' + this.name + '|' + this.recipeIds.join('|');
+        return this.id + RecipeList.SEPARATOR +
+            this.name + RecipeList.SEPARATOR +
+            this.recipeIds.join(RecipeList.SEPARATOR);
     }
 
     public static deserialize(canned: string): RecipeList {
@@ -62,6 +67,8 @@ export class RecipeList {
 }
 
 export class RecipeListBundle {
+    private static readonly SEPARATOR = '#';
+
     public recipeLists: Map<string, RecipeList>;
 
     public constructor() {
@@ -73,13 +80,14 @@ export class RecipeListBundle {
     }
 
     public serialize() {
-        return Array.from(this.recipeLists.values()).map(l => l.serialize()).join('#');
+        return Array.from(this.recipeLists.values()).map(
+            l => l.serialize()).join(RecipeListBundle.SEPARATOR);
     }
 
     public static deserialize(canned: string): RecipeListBundle {
         const b = new RecipeListBundle();
         if (canned) {
-            const listStrings = canned.split('#');
+            const listStrings = canned.split(RecipeListBundle.SEPARATOR);
             for (const listStr of listStrings) {
                 const l = RecipeList.deserialize(listStr)
                 b.recipeLists.set(l.id, l);

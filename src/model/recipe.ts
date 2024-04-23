@@ -3,7 +3,9 @@
 import { sha1 } from "js-sha1";
 
 export default class Recipe {
-    private static ID_LENGTH = 6;
+    private static readonly ID_LENGTH = 6;
+    private static readonly OUTER_SEPARATOR = '|';
+    private static readonly INNER_SEPARATOR = '@';
 
     // Let's have some public fields instead of countless getters and setters
     public readonly name: string;
@@ -43,20 +45,21 @@ export default class Recipe {
         } else {
             pieces = [
                 this.name, this.id, this.url, this.author, this.description,
-                this.ingredients.join('@'), this.method.join('@')
+                this.ingredients.join(Recipe.INNER_SEPARATOR),
+                this.method.join(Recipe.INNER_SEPARATOR)
             ];
         }
-        return pieces.join('|');
+        return pieces.join(Recipe.OUTER_SEPARATOR);
     }
 
     // Returns an instance of Recipe deserialized from a string representation.
     public static deserialize(canned: string) {
-        const pieces: Array<string> = canned.split('|');
+        const pieces: Array<string> = canned.split(Recipe.OUTER_SEPARATOR);
         if (pieces.length == 2) {
             return new Recipe(pieces[1], pieces[0]);
         } else if (pieces.length == 7) {
             return new Recipe(pieces[0], pieces[1], pieces[2], pieces[3], pieces[4],
-                pieces[5].split('@'), pieces[6].split('@')
+                pieces[5].split(Recipe.INNER_SEPARATOR), pieces[6].split(Recipe.INNER_SEPARATOR)
             );
         }
         // Still here? Not cool.

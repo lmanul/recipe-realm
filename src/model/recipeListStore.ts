@@ -34,7 +34,12 @@ export default class RecipeListStore {
     }
 
     public newListForUser(username: string, listName: string, firstRecipeId?: string) {
-        const bundle = this.bundleForUser(username);
+        let bundle = this.bundleForUser(username);
+        if (!bundle) {
+            // Trust that the caller knows what it's doing with this username.
+            bundle = new RecipeListBundle();
+            this.setBundleForUser(bundle, username);
+        }
         const newList = new RecipeList();
         newList.name = listName;
         if (firstRecipeId) {

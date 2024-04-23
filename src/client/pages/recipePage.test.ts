@@ -1,7 +1,7 @@
 import Recipe from '../../model/recipe';
 import RecipePage from './recipePage';
 import RecipeStore from '../../model/recipeStore';
-import { expect, test, afterAll } from 'vitest';
+import { afterAll, expect, test } from 'vitest';
 
 afterAll(() => {
     RecipeStore.getInstance().clearAll();

@@ -38,10 +38,12 @@ export default class ListsPage extends Page {
           <input placeholder="List Name" id="list-add-input" autocomplete="off"></input>
           <button id="list-add-button">➕ New List</button>
         `;
-        Array.from(store.bundleForUser(
-                globalThis['user']).recipeLists.values()).map(l => {
-            container.appendChild(new RecipeList(l, true /* modifiable */).render());
-        })
+        const myLists = store.bundleForUser(globalThis['user'])?.recipeLists?.values();
+        if (myLists) {
+            Array.from(myLists).map(l => {
+                container.appendChild(new RecipeList(l, true /* modifiable */).render());
+            });
+        }
         this.attachEvents(container);
         return container;
     }

@@ -1,6 +1,6 @@
 {
   "name": "recipe-realm",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Help people discover and collect food recipes",
   "scripts": {
     "dev": "MODE='development'; nodemon src/server.ts",

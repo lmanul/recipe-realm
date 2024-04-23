@@ -116,6 +116,7 @@ generate.
   timeout, notify user)
 * Rename custom lists
 * Remove a recipe from a list from the recipe's details page
+* More tests!
 * Better keyboard actions (regardless of accessibility)
 * CSS and/or JS minification/obfuscation
 * Drag and drop items between lists

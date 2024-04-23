@@ -27,6 +27,7 @@ export default class Page {
         this.load().then(() => {
             PageStore.getInstance().add(this.path, this);
             globalThis.document.title = (this.title ? this.title + ' | ' : '') + 'Recipe Realm';
+            // Make sure the back button works as expected.
             history.pushState({path: this.path}, '', globalThis.location.origin + this.path);
             document.getElementById('content').replaceChildren(this.render());
             // Potentially update the nav bar. Mark as active the nav item

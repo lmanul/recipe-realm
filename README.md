@@ -87,7 +87,7 @@ of the BBC, please forgive me) and include them in the project. I was initially
 concerned about the size, but I was surprised to see that they weren't very
 well optimized and that with a little bit of post-processing, the total of
 ~1600 images add up to ~70 MB. I made sure to let the client know to load
-those lazily as they scroll through the list.
+those lazily as users scroll through the list.
 
 You can find code for those steps inside `tools/`.
 
@@ -99,7 +99,7 @@ start thinking about splitting.
 
 ### Styling
 
-Similarly, tge application is small enough that all of its styles can be served
+Similarly, the application is small enough that all of its styles can be served
 in a single request and without downloading too many styles that will not be used
 in a single session.
 
@@ -127,7 +127,7 @@ generate.
 * "Other recipes like this" footer on recipe details page
 * Add new recipes
 * Regularly request updated data from the server, in case another client
-  modifies things for a given account.
+  modifies things for a given account
 
 ### Other missing pieces
 

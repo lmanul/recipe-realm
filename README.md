@@ -83,13 +83,26 @@ well optimized and that with a little bit of post-processing, the total of
 ~1600 images add up to ~70 MB. I made sure to let the client know to load
 those lazily as they scroll through the list.
 
+### Client code
+
+The application is small enough that all of its client-side code can be served
+in a single bundle of reasonable size. I didn't think it was necessary to
+start thinking about splitting.
+
 ### Styling
 
-TODO
+Similarly, tge application is small enough that all of its styles can be served
+in a single request and without downloading too many styles that will not be used
+in a single session.
 
 ### Recipe identifiers
 
-TODO
+I'm using short, 6-hexadecimal-character identifiers. It seemed like a good
+compromise between length, readability, ease of generation, and collision
+likelihood. The downside is that 1) they aren't user-readable (as something
+that includes the recipe's title would be) and 2) they don't make good use of
+all ASCII characters. But they allow for short URLs and are trivial to
+generate.
 
 ### Other missing pieces
 

@@ -1,9 +1,8 @@
 import Recipe from '../../model/recipe';
 import RecipeTile from './recipeTile';
-import RecipeStore from '../../model/recipeStore';
 import { expect, test } from 'vitest';
 
-test('Recipe tile should contain an image and image, but no ingredients or method', () => {
+test('Recipe tile should contain an image and name, but no ingredients or method', () => {
     const recipeId = 'abcd';
     const recipe = new Recipe(
         'The best recipe in the whole world',

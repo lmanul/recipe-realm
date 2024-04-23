@@ -2,6 +2,8 @@ import Home from '../client/pages/home';
 import ListsPage from './pages/listsPage';
 import PageStore from './pageStore';
 import Recipe from '../model/recipe';
+import { RecipeListBundle } from '../model/recipeList';
+import RecipeListStore from '../model/recipeListStore';
 import RecipePage from './pages/recipePage';
 import RecipeStore from '../model/recipeStore';
 
@@ -23,6 +25,17 @@ if (globalThis['recipeListData']) {
         const recipe = new Recipe(name, id);
         recipeStore.add(recipe);
     }
+
+    // Did we also get user list data? That will only happen if we are logged
+    // in.
+    if (globalThis['userListData'] && globalThis['user']) {
+        const data = globalThis['userListData'];
+        const user = globalThis['user'];
+        RecipeListStore.getInstance().setBundleForUser(
+            RecipeListBundle.deserialize(data),
+            user);
+    }
+
     // If we got recipe details data, load the recipe page.
     if (globalThis['recipeDetailsData']) {
         const data = globalThis['recipeDetailsData'];

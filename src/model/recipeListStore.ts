@@ -24,6 +24,15 @@ export default class RecipeListStore {
         return this.bundles.get(username);
     }
 
+    public listsContainingRecipe(username: string, recipeId: string): Array<RecipeList> {
+        const bundle = this.bundleForUser(username);
+        if (bundle) {
+            return Array.from(bundle.recipeLists.values()).filter(l => l.has(recipeId));
+        } else {
+            return [];
+        }
+    }
+
     public newListForUser(username: string, listName: string, firstRecipeId?: string) {
         const bundle = this.bundleForUser(username);
         const newList = new RecipeList();

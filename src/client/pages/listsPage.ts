@@ -10,21 +10,12 @@ export default class ListsPage extends Page {
     }
 
     public load() {
-        return super.load().then(() => {
-            return fetch('/d/lists').then(response => {
-                if (response.redirected) {
-                    // We need to log in first.
-                    globalThis.location.href = '/login';
-                } else {
-                    return response.text().then(data => {
-                        const user = globalThis['user'];
-                        RecipeListStore.getInstance().setBundleForUser(
-                            RecipeListBundle.deserialize(data),
-                            user);
-                    });
-                }
-            });
-        });
+        // Are we logged in?
+        if (!globalThis['user']) {
+            globalThis.location.replace('/login');
+        }
+        // If we are logged in, we already got the list data in the initial page.
+        return super.load();
     }
 
     public render() {

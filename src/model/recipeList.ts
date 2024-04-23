@@ -45,6 +45,10 @@ export class RecipeList {
         }
     }
 
+    public has(recipeId: string): boolean {
+        return this.recipeIds.includes(recipeId);
+    }
+
     public serialize() {
         return this.id + RecipeList.SEPARATOR +
             this.name + RecipeList.SEPARATOR +

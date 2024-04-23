@@ -15,7 +15,8 @@ a {
   text-decoration: none;
 }
 
-button, input {
+/* Let everything breathe a little */
+button, input, select {
   padding: 1.5ex;
 }
 
@@ -128,6 +129,21 @@ h3.recipe-list-name {
 .recipe-header img {
   height: fit-content;
   max-width: 50vw;
+}
+
+#recipe-inclusion {
+  background-color: #f9dfd4;
+  margin-bottom: 2ex;
+  padding: 1ex;
+}
+
+#recipe-inclusion span {
+  background-color: rgba(255, 255, 255, 0.6);
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  border-radius: 3px;
+  display: inline-block;
+  margin: 3px;
+  padding: 1ex;
 }
 
 .recipe-source {

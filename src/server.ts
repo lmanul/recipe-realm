@@ -48,11 +48,13 @@ seedUserListData();
 
 const populateCommonTemplateData = (request, dataObj: Object,
         includeRecipeList?: boolean) => {
+    const userListData = request.user ?
+        RecipeListStore.getInstance().bundleForUser(request.user)?.serialize() : '';
     return {
         bundleUrl: '/' + BUNDLE_FILE_NAME,
         recipeListData: includeRecipeList ? recipeListData : '',
         recipeDetailsData: '',
-        userListData: '',
+        userListData: userListData,
         user: request?.user || '',
         ...dataObj,
     }

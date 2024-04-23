@@ -28,14 +28,6 @@ export default class RecipePage extends Page {
         });
     }
 
-    public getPath() {
-        return '/' + this.recipe.id;
-    }
-
-    public getTitle() {
-        return this.recipe.name;
-    }
-
     public render() {
         // Populate the store if necessary. Subsequent loads will be instant.
         this.recipeStore.add(this.recipe);

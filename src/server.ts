@@ -123,9 +123,10 @@ app.get('/d/lists', checkAuthenticated, (request, response) => {
 
 // Creates a new list for the logged in user, optionally containing a first recipe.
 app.get('/d/newlist', checkAuthenticated, (request, response) => {
-    RecipeListStore.getInstance().newListForUser(request.user, request.query.listname, request.query.recipeid);
-    // TODO: Local update without re-fetching from the server.
-    response.redirect('/lists');
+    const query = request.query;
+    RecipeListStore.getInstance().newListForUser(
+        request.user, query.listname, query.listid, query.recipeid);
+    response.status(200).end();
 });
 
 app.get('/d/removefromlist/:listId/:recipeId', checkAuthenticated, (request, response) => {
@@ -134,6 +135,7 @@ app.get('/d/removefromlist/:listId/:recipeId', checkAuthenticated, (request, res
         response.status(404).end();
     } else {
         list.remove(request.params.recipeId);
+        response.status(200).end();
     }
 });
 
@@ -143,6 +145,7 @@ app.get('/d/addtolist/:listId/:recipeId', checkAuthenticated, (request, response
         response.status(404).end();
     } else {
         list.add(request.params.recipeId);
+        response.status(200).end();
     }
 });
 

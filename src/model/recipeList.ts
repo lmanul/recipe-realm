@@ -5,10 +5,6 @@
 
 import isClient from '../whereAmI';
 
-const generateId = () => {
-    return Math.random().toString(36).slice(-6);
-};
-
 export class RecipeList {
 
     private static readonly SEPARATOR = '|';
@@ -17,9 +13,9 @@ export class RecipeList {
     public recipeIds: Array<string>;
     public readonly id;
 
-    public constructor(id?: string) {
+    public constructor(id: string) {
         this.recipeIds = [];
-        this.id = id || generateId();
+        this.id = id;
     }
 
     public add(recipeId: string) {

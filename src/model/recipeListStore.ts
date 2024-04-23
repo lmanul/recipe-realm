@@ -1,4 +1,9 @@
+import isClient from "../whereAmI";
 import { RecipeList, RecipeListBundle } from "./recipeList";
+
+const generateId = () => {
+    return Math.random().toString(36).slice(-6);
+};
 
 export default class RecipeListStore {
     private static instance: RecipeListStore;
@@ -33,18 +38,25 @@ export default class RecipeListStore {
         }
     }
 
-    public newListForUser(username: string, listName: string, firstRecipeId?: string) {
-        let bundle = this.bundleForUser(username);
-        if (!bundle) {
-            // Trust that the caller knows what it's doing with this username.
-            bundle = new RecipeListBundle();
-            this.setBundleForUser(bundle, username);
-        }
-        const newList = new RecipeList();
-        newList.name = listName;
-        if (firstRecipeId) {
-            newList.recipeIds.push(firstRecipeId);
-        }
-        bundle.recipeLists.set(newList.id, newList);
-    }
+    public async newListForUser(username: string, listName: string, listId?: string, firstRecipeId?: string) {
+        listId = listId || generateId();
+
+        if (isClient()) {
+            // Let the server know.
+            // TODO: encode user-provided name
+            fetch(`/d/newlist?listid=${listId}&listname=${listName}&firstrecipeid=${firstRecipeId || ''}`);
+         }
+         let bundle = this.bundleForUser(username);
+         if (!bundle) {
+             // Trust that the caller knows what it's doing with this username.
+             bundle = new RecipeListBundle();
+             this.setBundleForUser(bundle, username);
+         }
+         const newList = new RecipeList(listId);
+         newList.name = listName;
+         if (firstRecipeId) {
+             newList.recipeIds.push(firstRecipeId);
+         }
+         bundle.recipeLists.set(newList.id, newList);
+     }
 }

@@ -20,6 +20,13 @@ export default class Page {
             globalThis.document.title = (title ? title + ' | ' : '') + 'Recipe Realm';
             history.pushState({path: this.getPath()}, '', globalThis.location.origin + this.getPath());
             document.getElementById('content').replaceChildren(this.render());
+            // Potentially update the nav bar. Mark as active the nav item
+            // whose target matches where we are now.
+            const navItems = document.querySelectorAll('.nav-item');
+            for (const navItem of navItems) {
+                navItem.classList.toggle('active',
+                    navItem.getAttribute('data-target') == this.getPath());
+            }
         })
     }
 

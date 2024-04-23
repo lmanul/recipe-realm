@@ -124,10 +124,12 @@ h3.recipe-list-name {
 
 .recipe-header h2 {
   display: inline-block;
+  margin-top: 0;
 }
 
 .recipe-header img {
   height: fit-content;
+  margin: 2ex;
   max-width: 50vw;
 }
 

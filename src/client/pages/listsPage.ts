@@ -1,4 +1,3 @@
-import { RecipeListBundle } from "../../model/recipeList";
 import RecipeListStore from "../../model/recipeListStore";
 import RecipeList from "../components/recipeList";
 import Page from "./page";
@@ -23,6 +22,7 @@ export default class ListsPage extends Page {
         newListButton.addEventListener('click', () => {
             const store = RecipeListStore.getInstance();
             const user = globalThis['user'];
+
             const name = container.querySelector('#list-add-input').value;
             if (name && user) {
                 store.newListForUser(user, name);

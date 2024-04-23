@@ -109,6 +109,7 @@ generate.
 * Persist user data to a database
 * Rename custom lists
 * Delete custom lists
+* Better keyboard navigation (regardless of accessibility)
 * Drag and drop items between lists
 * Drag and drop items within a list (change order)
 * Add new recipes

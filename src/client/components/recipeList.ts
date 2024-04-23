@@ -2,7 +2,7 @@ import Component from "./component";
 import RecipeAutocomplete from "./recipeAutocomplete";
 import RecipeTile from "./recipeTile";
 import RecipeStore from "../../model/recipeStore";
-import RecipeListStore from "../../model/recipeListStore";
+import { escape } from 'html-escaper';
 import { RecipeList as RecipeListModel} from '../../model/recipeList';
 
 export default class RecipeList extends Component {
@@ -33,25 +33,29 @@ export default class RecipeList extends Component {
         }
 
         // Recipe addition autocomplete
-        const input: HTMLInputElement = this.element.querySelector('.add-recipe-input');
-        input.addEventListener('focus', () => {
-            if (!this.element.querySelector('.autocomplete-menu')) {
-              this.autocomplete = new RecipeAutocomplete(input, this);
-              this.autocomplete.render();
-            }
-            this.autocomplete.show(true);
-        });
-        input.addEventListener('blur', () => {
-            // Hide after a short delay
-            globalThis.setTimeout(() => this.autocomplete.show(false), 300);
-        });
+        if (this.modifiable) {
+            const input: HTMLInputElement = this.element.querySelector('.add-recipe-input');
+            input.addEventListener('focus', () => {
+                if (!this.element.querySelector('.autocomplete-menu')) {
+                  this.autocomplete = new RecipeAutocomplete(input, this);
+                  this.autocomplete.render();
+                }
+                this.autocomplete.show(true);
+            });
+            input.addEventListener('blur', () => {
+                // Hide after a short delay
+                globalThis.setTimeout(() => this.autocomplete.show(false), 300);
+            });
+        }
     }
 
     public render() {
         const store = RecipeStore.getInstance();
         this.element = document.createElement('div');
         this.element.classList.add('recipe-list-and-name');
-        this.element.innerHTML = `<h3 class="recipe-list-name">${this.model.name}</h3>`;
+        // List names are the only thing for which we allow actual
+        // user-provided text. Be a little careful.
+        this.element.innerHTML = `<h3 class="recipe-list-name">${escape(this.model.name)}</h3>`;
         if (this.modifiable) {
             this.element.innerHTML += `
                 <div class="add-recipe">

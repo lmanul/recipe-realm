@@ -125,7 +125,7 @@ app.get('/d/lists', checkAuthenticated, (request, response) => {
 app.get('/d/newlist', checkAuthenticated, (request, response) => {
     const query = request.query;
     RecipeListStore.getInstance().newListForUser(
-        request.user, query.listname, query.listid, query.firstrecipeid);
+        request.user, decodeURI(query.listname), query.listid, query.firstrecipeid);
     response.status(200).end();
 });
 

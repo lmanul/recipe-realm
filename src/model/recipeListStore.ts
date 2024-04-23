@@ -42,9 +42,8 @@ export default class RecipeListStore {
         listId = listId || generateId();
 
         if (isClient()) {
-            // Let the server know.
-            // TODO: encode user-provided name
-            fetch(`/d/newlist?listid=${listId}&listname=${listName}&firstrecipeid=${firstRecipeId || ''}`);
+            // Let the server know. URL-encode the user-provided input.
+            fetch(`/d/newlist?listid=${listId}&listname=${encodeURI(listName)}&firstrecipeid=${firstRecipeId || ''}`);
          }
          let bundle = this.bundleForUser(username);
          if (!bundle) {

@@ -49,9 +49,12 @@ export default class RecipeAutocomplete extends Component {
             this.reset();
             return;
         }
+        // Treat multiple terms as "and".
+        const queryTerms = query.includes(' ') ? query.split(' ') : [query];
         const matches: Array<Recipe> = [];
         for (const recipe of this.store.getAll()) {
-            if (recipe.name.toLowerCase().includes(query)) {
+            const name = recipe.name.toLowerCase();
+            if (queryTerms.every(term => name.includes(term))) {
                 matches.push(recipe);
             }
             if (matches.length >= this.MAX_RESULT_COUNT) {

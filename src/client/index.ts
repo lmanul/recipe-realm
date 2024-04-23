@@ -57,9 +57,10 @@ if (globalThis['recipeDetailsData']) {
 // Make nav links work properly.
 document.querySelector('nav').addEventListener('click', (event) => {
     if (event.target instanceof HTMLElement) {
-        PageStore.getInstance()
-            .get(event.target.getAttribute('data-target'))
-            .navigate();
+        const page = PageStore.getInstance().get(event.target.getAttribute('data-target'))
+        if (page) {
+            page.navigate();
+        }
     }
 });
 

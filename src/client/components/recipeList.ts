@@ -1,5 +1,6 @@
 import Component from "./component";
 import RecipeAutocomplete from "./recipeAutocomplete";
+import RecipeListStore from "../../model/recipeListStore";
 import RecipeTile from "./recipeTile";
 import RecipeStore from "../../model/recipeStore";
 import { escape } from 'html-escaper';
@@ -9,7 +10,7 @@ export default class RecipeList extends Component {
 
     private readonly modifiable;
     private autocomplete: RecipeAutocomplete | null;
-    readonly model: RecipeListModel;
+    model: RecipeListModel;
 
     public constructor(recipeList: RecipeListModel, modifiable?: boolean) {
         super();
@@ -32,8 +33,18 @@ export default class RecipeList extends Component {
             });
         }
 
-        // Recipe addition autocomplete
         if (this.modifiable) {
+            // Delete button
+            this.element.querySelector('.delete-btn')?.addEventListener('click', () => {
+                // Modal dialogs can be annoying, but for a destructive action, I like them.
+                if (globalThis.confirm('Are you sure?')) {
+                    RecipeListStore.getInstance().deleteList(globalThis['user'], this.model.id);
+                    this.model = null;
+                    this.refresh();
+                }
+            });
+
+            // Recipe addition autocomplete
             const input: HTMLInputElement = this.element.querySelector('.add-recipe-input');
             input.addEventListener('focus', () => {
                 if (!this.element.querySelector('.autocomplete-menu')) {
@@ -50,6 +61,11 @@ export default class RecipeList extends Component {
     }
 
     public render() {
+        if (!this.model) {
+            // We just got deleted.
+            this.element.outerHTML = '';
+            return this.element;
+        }
         const store = RecipeStore.getInstance();
         this.element = document.createElement('div');
         this.element.classList.add('recipe-list-and-name');
@@ -58,6 +74,7 @@ export default class RecipeList extends Component {
         this.element.innerHTML = `<h3 class="recipe-list-name">${escape(this.model.name)}</h3>`;
         if (this.modifiable) {
             this.element.innerHTML += `
+                <button class="delete-btn">🗑️ Delete list</button>
                 <div class="add-recipe">
                     <input class="add-recipe-input" placeholder="➕ Add recipe"></input>
                 </div>

@@ -156,7 +156,7 @@ app.get('/d/addtolist/:listId/:recipeId', checkAuthenticated, (request, response
     }
 });
 
-app.get('d/deletelist/:listId', checkAuthenticated, (request, response) => {
+app.get('/d/deletelist/:listId', checkAuthenticated, (request, response) => {
     RecipeListStore.getInstance().deleteList(request.user, request.params.listId);
     response.status(200).end();
 });

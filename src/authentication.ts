@@ -29,7 +29,7 @@ const setUpAuthentication = (app) => {
         done(null, user);
     });
     app.get('/logincallback/:username', passport.authenticate('custom', {
-        successRedirect: '/',
+        successRedirect: '/lists',
         failureRedirect: '/login',
     }));
 }

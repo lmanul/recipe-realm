@@ -110,11 +110,11 @@ generate.
 * Better error handling when communication with server is unstable (retry,
   timeout, notify user)
 * Rename custom lists
-* Delete custom lists
 * Remove a recipe from a list from the recipe's details page
 * Better keyboard navigation (regardless of accessibility)
 * Drag and drop items between lists
 * Drag and drop items within a list (change order)
+* "Other recipes like this" footer on recipe details page
 * Add new recipes
 
 ### Other missing pieces

@@ -108,6 +108,14 @@ nav {
   display: block;
 }
 
+.delete-btn {
+  float: right;
+}
+
+.delete-btn:hover {
+  color: red;
+}
+
 .inline-delete {
   display: none;
   position: absolute;

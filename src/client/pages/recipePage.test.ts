@@ -21,7 +21,7 @@ test('Recipe details page should contain ingredients and method', () => {
     RecipeStore.getInstance().add(recipe);
     const page = new RecipePage(recipeId);
 
-    const rendered = page.render();
-    expect(rendered.innerHTML).toContain('more butter');
-    expect(rendered.innerHTML).toContain('microwave');
+    const rendered = page.render().outerHTML;
+    expect(rendered).toContain('more butter');
+    expect(rendered).toContain('microwave');
 });

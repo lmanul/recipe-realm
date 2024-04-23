@@ -4,6 +4,16 @@ import PageStore from "../pageStore";
 
 export default class Page {
 
+    // The URL path for this page, for history management purposes
+    path: string;
+    // The title of the page, to be used (among others) for the browser tab
+    title: String;
+
+    public constructor(path: string, title: string) {
+        this.path = path;
+        this.title = title;
+    }
+
     // Performs any necessary steps to load data from the server before rendering this page.
     public load(): Promise<void> {
         const loading = document.createElement('div');
@@ -15,29 +25,18 @@ export default class Page {
     // Navigates to this page, replacing the currently viewed page.
     public navigate() {
         this.load().then(() => {
-            const title = this.getTitle();
-            PageStore.getInstance().add(this.getPath(), this);
-            globalThis.document.title = (title ? title + ' | ' : '') + 'Recipe Realm';
-            history.pushState({path: this.getPath()}, '', globalThis.location.origin + this.getPath());
+            PageStore.getInstance().add(this.path, this);
+            globalThis.document.title = (this.title ? this.title + ' | ' : '') + 'Recipe Realm';
+            history.pushState({path: this.path}, '', globalThis.location.origin + this.path);
             document.getElementById('content').replaceChildren(this.render());
             // Potentially update the nav bar. Mark as active the nav item
             // whose target matches where we are now.
             const navItems = document.querySelectorAll('.nav-item');
             for (const navItem of navItems) {
                 navItem.classList.toggle('active',
-                    navItem.getAttribute('data-target') == this.getPath());
+                    navItem.getAttribute('data-target') == this.path);
             }
         })
-    }
-
-    // Returns the URL path for this page, for history management purposes.
-    public getPath(): string {
-        return '';
-    }
-
-    // Returns the title of the page, to be used (among others) for the browser tab.
-    public getTitle(): string {
-        return '';
     }
 
     // Returns an element containing the page's content.

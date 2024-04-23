@@ -8,8 +8,10 @@ export default class RecipePage extends Page {
     private recipe: Recipe;
     private readonly recipeStore: RecipeStore = RecipeStore.getInstance();
     public constructor(recipeId: string) {
-        super();
+        super('', '');
         this.recipe = this.recipeStore.getById(recipeId);
+        this.path = '/' + this.recipe.id;
+        this.title = this.recipe.name;
     }
 
     public load() {

@@ -5,6 +5,10 @@ import Page from "./page";
 
 export default class ListsPage extends Page {
 
+    public constructor() {
+        super('/lists', 'My Lists');
+    }
+
     public load() {
         return super.load().then(() => {
             return fetch('/d/lists').then(response => {
@@ -37,13 +41,5 @@ export default class ListsPage extends Page {
             container.appendChild(new RecipeList(l, true /* modifiable */).render());
         })
         return container;
-    }
-
-    public getPath(): string {
-        return '/lists';
-    }
-
-    public getTitle(): string {
-        return 'My Lists';
     }
 }

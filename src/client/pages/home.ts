@@ -5,6 +5,10 @@ import Page from "./page";
 export default class Home extends Page {
     private recipeStore: RecipeStore = RecipeStore.getInstance();
 
+    public constructor() {
+        super('/', '');
+    }
+
     public render() {
         const page = document.createElement('div');
         const recipeList = document.createElement('div');
@@ -16,9 +20,5 @@ export default class Home extends Page {
         });
         page.appendChild(recipeList);
         return page;
-    }
-
-    public getPath(): string {
-        return '/';
     }
 }

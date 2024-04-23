@@ -5,4 +5,9 @@
         <a href="/logincallback/<%= user %>" class="user-button"><%= user %></a>
     <% } %>
 </div>
+<script>
+    // Detail: we are server-rendered but we still want to show where we are
+    // in the nav bar.
+    document.querySelector('[data-target="/login"]')?.classList.add('active');
+</script>
 <%- include('foot.ejs') %>

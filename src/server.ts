@@ -46,17 +46,16 @@ const recipeStore = RecipeStore.getInstance();
 
 seedUserListData();
 
-const populateCommonTemplateData = (request, dataObj: Object,
-        includeRecipeList?: boolean) => {
+const populateCommonTemplateData = (request, dataObj?: Object) => {
     const userListData = request.user ?
         RecipeListStore.getInstance().bundleForUser(request.user)?.serialize() : '';
     return {
         bundleUrl: '/' + BUNDLE_FILE_NAME,
-        recipeListData: includeRecipeList ? recipeListData : '',
+        recipeListData,
         recipeDetailsData: '',
-        userListData: userListData,
+        userListData,
         user: request?.user || '',
-        ...dataObj,
+        ...(dataObj || {}),
     }
 };
 
@@ -70,13 +69,11 @@ app.use('/s', express.static('static'));
 
 // Home page
 app.get('/', (request, response) => {
-    response.render('home',
-        populateCommonTemplateData(request, {}, true /* includeRecipeList */));
+    response.render('home', populateCommonTemplateData(request));
 });
 
 app.get('/lists', checkAuthenticated, (request, response) => {
-    response.render('home',
-        populateCommonTemplateData(request, {}, true /* includeRecipeList */));
+    response.render('home', populateCommonTemplateData(request));
 });
 
 app.get('/login', (request, response) => {
@@ -99,7 +96,7 @@ app.get('/:recipeId', (request, response) => {
     if (recipe) {
         response.render('home', populateCommonTemplateData(request, {
             recipeDetailsData: recipe.serialize(),
-         }, true /* includeRecipeList */));
+         }));
     } else {
         response.status(404).end();
     }

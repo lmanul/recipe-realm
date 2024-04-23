@@ -3,8 +3,7 @@ import RecipeListStore from '../../model/recipeListStore';
 import RecipeStore from '../../model/recipeStore';
 import RecipeHeader from './recipeHeader';
 import Recipe from '../../model/recipe';
-import { afterAll, beforeAll, expect, test } from 'vitest';
-import { vi } from 'vitest';
+import { afterAll, beforeAll, expect, test, vi } from 'vitest';
 
 const fetchMocker = createFetchMock(vi);
 

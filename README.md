@@ -83,6 +83,14 @@ well optimized and that with a little bit of post-processing, the total of
 ~1600 images add up to ~70 MB. I made sure to let the client know to load
 those lazily as they scroll through the list.
 
+### Styling
+
+TODO
+
+### Recipe identifiers
+
+TODO
+
 ### Other missing pieces
 
 Some other things that would need a little extra effort for this to be a

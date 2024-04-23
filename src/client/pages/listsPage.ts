@@ -34,7 +34,7 @@ export default class ListsPage extends Page {
         `;
         Array.from(RecipeListStore.getInstance().bundleForUser(
                 globalThis['user']).recipeLists.values()).map(l => {
-            container.appendChild(new RecipeList(l).render());
+            container.appendChild(new RecipeList(l, true /* modifiable */).render());
         })
         return container;
     }

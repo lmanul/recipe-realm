@@ -26,7 +26,7 @@ export default class RecipeTile extends Component {
         this.element.classList.add('recipe-tile');
         this.element.innerHTML = `
             <div style="position: relative">
-              <img src="/img/${this.recipe.id}.jpg" loading="lazy" />
+              <img src="${this.recipe.getImageUrl()}" loading="lazy" />
               ${this.allowDelete
                   ? '<div class="inline-delete" data-recipe="' +
                       this.recipe.id + '" title="Remove from this list">❌</div>'

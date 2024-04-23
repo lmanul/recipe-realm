@@ -82,6 +82,7 @@ nav {
 }
 
 .recipe-tile img {
+  /* Slightly darker background to show place holders before loading */
   background-color: #ddd;
   height: 15ex;
   object-fit: fill;
@@ -106,6 +107,10 @@ nav {
 h3.recipe-list-name {
   display: inline-block;
   font-size: x-large;
+  margin-bottom: 1ex;
+}
+
+.add-recipe-input {
 }
 
 /* Recipe details page */
@@ -133,6 +138,46 @@ h3.recipe-list-name {
 
 .recipe-body li {
   margin: 1.5ex;
+}
+
+/* Autocomplete */
+
+#autocomplete-menu {
+  background-color: white;
+  border: 1px solid #999;
+  border-top: none;
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  width: 30ex;
+  z-index: 3;
+}
+
+.autocomplete-row {
+  align-items: center;
+  cursor: pointer;
+  display: flex;
+  height: 4ex;
+  overflow: hidden;
+  padding: 0.5ex;
+}
+
+.autocomplete-row:hover {
+  background-color: #ffc8b1;
+}
+
+.autocomplete-row img {
+  background-color: #ddd;
+  height: 3ex;
+  object-fit: fill;
+  width: 3ex;
+}
+
+.autocomplete-row span {
+  margin-left: 1ex;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 /* Login page */

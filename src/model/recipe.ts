@@ -5,6 +5,7 @@ import { sha1 } from "js-sha1";
 export default class Recipe {
     private static ID_LENGTH = 6;
 
+    // Let's have some public fields instead of countless getters and setters
     public readonly name: string;
     public readonly id: string;
     public url: string;
@@ -28,6 +29,10 @@ export default class Recipe {
         const sha = sha1.create();
         sha.update(this.url);
         return sha.hex().substring(0, Recipe.ID_LENGTH);
+    }
+
+    public getImageUrl(): string {
+        return '/img/' + this.id + '.jpg';
     }
 
     // Returns a representation of this recipe to send over the wire.

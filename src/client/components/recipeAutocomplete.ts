@@ -1,17 +1,21 @@
 import Component from "./component";
 import Recipe from "../../model/recipe";
 import RecipeStore from "../../model/recipeStore";
+import RecipeList from "./recipeList";
 
 export default class RecipeAutocomplete extends Component {
 
     readonly MAX_RESULT_COUNT = 10;
 
     store: RecipeStore;
+    // The recipe list component we are currently adding to, or null if not applicable.
+    list: RecipeList | null;
     inputField: HTMLInputElement;
 
-    public constructor(inputField: HTMLInputElement) {
+    public constructor(inputField: HTMLInputElement, recipeList?: RecipeList) {
         super();
         this.inputField = inputField;
+        this.list = recipeList || null;
         this.store = RecipeStore.getInstance();
     }
 
@@ -42,8 +46,8 @@ export default class RecipeAutocomplete extends Component {
         if (!(event.target instanceof HTMLInputElement)) {
             return;
         }
-        // Let's not throttle. This is all local, and we don't have that many
-        // recipes.
+        // Let's not throttle. This is all local (network), and we don't have that many
+        // recipes (CPU).
         const query = event.target.value.trim().toLowerCase();
         if (!query) {
             this.reset();
@@ -64,8 +68,25 @@ export default class RecipeAutocomplete extends Component {
         this.showMatches(matches);
     };
 
+    onMatchSelected(e) {
+        this.show(false);
+        let currentEl: HTMLElement = e.target;
+        while(currentEl && !currentEl.hasAttribute('data-id')) {
+            currentEl = currentEl.parentElement;
+        }
+        const recipeId = currentEl.getAttribute('data-id');
+        if (recipeId && this.list) {
+            // TODO: Server
+            this.list.model.add(recipeId);
+            this.list.refresh();
+        }
+    }
+
     attachEvents() {
         this.inputField.addEventListener('input', this.search);
+        this.element.addEventListener('click', (event) => {
+            this.onMatchSelected(event);
+        });
     }
 
     render() {
@@ -80,10 +101,17 @@ export default class RecipeAutocomplete extends Component {
         return this.element;
     }
 
+    show(flag: boolean) {
+        this.element.style.opacity = flag ? '1' : '0';
+    }
+
     destruct() {
+        // Disappear, but only after we've had time to process a click on a match
         this.inputField.removeEventListener('input', this.search);
         if (this.element && this.element.parentElement) {
-            this.element.parentElement.removeChild(this.element);
+            globalThis.setTimeout(() => {
+                this.element.parentElement.removeChild(this.element);
+            }, 100);
         }
     }
 }

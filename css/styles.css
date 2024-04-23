@@ -108,9 +108,7 @@ h3.recipe-list-name {
   display: inline-block;
   font-size: x-large;
   margin-bottom: 1ex;
-}
-
-.add-recipe-input {
+  margin-top: 0;
 }
 
 /* Recipe details page */

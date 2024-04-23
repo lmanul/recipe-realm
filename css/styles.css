@@ -24,8 +24,8 @@ button, input, select {
   button, input, select {
     padding: 0.5ex;
   }
-  input {
-    max-width: 18ex;
+  input, select {
+    max-width: 15ex;
   }
 }
 
@@ -86,6 +86,12 @@ nav {
   vertical-align: middle;
 }
 
+@media (max-width: 800px) {
+  .add-recipe {
+    margin-left: 0.5ex;
+  }
+}
+
 .recipe-list {
   display: flex;
   flex-direction: row;
@@ -117,6 +123,7 @@ nav {
 
 @media (max-width: 900px) {
   .recipe-tile {
+    padding: 0.3ex;
     width: 13ex;
   }
   .recipe-tile img {
@@ -152,7 +159,18 @@ h3.recipe-list-name {
   display: inline-block;
   font-size: x-large;
   margin: 0;
+  max-width: 30ex;
+  overflow: hidden;
+  text-overflow: ellipsis;
   vertical-align: middle;
+  white-space: nowrap;
+}
+
+@media (max-width: 900px) {
+  h3.recipe-list-name {
+    font-size: large;
+    max-width: 15ex;
+  }
 }
 
 /* Recipe details page */

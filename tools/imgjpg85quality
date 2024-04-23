@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/python
 """
 Use a 85% quality factor for the given JPG image. If this doesn't result in a
 significant size reduction, leave the image unchanged. This requires

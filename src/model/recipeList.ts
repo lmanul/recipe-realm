@@ -3,6 +3,8 @@
  * represents all the recipe lists for a given user.
  */
 
+import isClient from '../whereAmI';
+
 const generateId = () => {
     return Math.random().toString(36).slice(-6);
 };
@@ -18,6 +20,10 @@ export class RecipeList {
     }
 
     public add(recipeId: string) {
+        if (isClient()) {
+            // Let the server know.
+            fetch(`/d/addtolist/${this.id}/${recipeId}`);
+        }
         // Don't add duplicates.
         const index = this.recipeIds.indexOf(recipeId);
         if (index == -1) {
@@ -26,6 +32,10 @@ export class RecipeList {
     }
 
     public remove(recipeId: string) {
+        if (isClient()) {
+            // Let the server know.
+            fetch(`/d/removefromlist/${this.id}/${recipeId}`);
+        }
         const index = this.recipeIds.indexOf(recipeId);
         if (index != -1) {
             this.recipeIds.splice(index, 1);

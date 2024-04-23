@@ -20,6 +20,9 @@ Help people discover and collect food recipes!
 
 `npm run dev`
 
+You can then load the application at
+[http://localhost:3000](http://localhost:3000).
+
 * Run tests:
 
 `npm test`

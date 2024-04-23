@@ -1,3 +1,5 @@
+/** @file An abstraction to store and manage user custom lists. */
+
 import isClient from "../whereAmI";
 import { RecipeList, RecipeListBundle } from "./recipeList";
 

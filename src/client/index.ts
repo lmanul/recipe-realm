@@ -1,3 +1,5 @@
+/** @file The client-side entry point. */
+
 import Home from '../client/pages/home';
 import ListsPage from './pages/listsPage';
 import PageStore from './pageStore';
@@ -44,14 +46,15 @@ if (globalThis['recipeDetailsData']) {
 } else if (globalThis.location.pathname.endsWith('/login')) {
     // The login page is server-side rendered, and we leave it as-is.
 } else {
-    let pageToLoad = PageStore.getInstance().get(globalThis.location.pathname);
+    const pageStore = PageStore.getInstance();
+    let pageToLoad = pageStore.get(globalThis.location.pathname);
     if (!pageToLoad) {
         console.warn(
             'Could not look up page by path ' + globalThis.location.pathname
         );
     }
     // If we still don't know where to go, load the home page.
-    (pageToLoad || new Home()).navigate();
+    (pageToLoad || pageStore.get('/')).navigate();
 }
 
 // Make nav links work properly.

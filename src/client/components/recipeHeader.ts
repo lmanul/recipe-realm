@@ -1,3 +1,8 @@
+/**
+ * @file A component rendered at the top of a recipe details page, containing
+ * the recipe's main information.
+ */
+
 import Component from './component';
 import Recipe from '../../model/recipe';
 import RecipeListStore from '../../model/recipeListStore';

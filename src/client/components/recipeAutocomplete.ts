@@ -1,3 +1,5 @@
+/** @file A component to make it easy to find recipes in our directory. */
+
 import Component from "./component";
 import Recipe from "../../model/recipe";
 import RecipeStore from "../../model/recipeStore";

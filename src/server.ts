@@ -1,3 +1,5 @@
+/** @file The server-side entry point. */
+
 import express from 'express';
 import RecipeListStore from './model/recipeListStore';
 import RecipeStore from './model/recipeStore';

@@ -1,5 +1,5 @@
 /**
- * @file Classes to hold user-define recipe lists. A recipe list "bundle"
+ * @file Classes to hold user-defined recipe lists. A recipe list "bundle"
  * represents all the recipe lists for a given user.
  */
 

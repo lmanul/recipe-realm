@@ -1,3 +1,5 @@
+/** @file This file takes care of the login/logout and user management logic. */
+
 import passport from 'passport';
 import passportCustom from 'passport-custom';
 import session from 'express-session';

@@ -1,3 +1,5 @@
+/** @file Used at startup time to populate our data. */
+
 import Recipe from './model/recipe';
 import { RecipeListBundle } from './model/recipeList';
 import RecipeListStore from './model/recipeListStore';

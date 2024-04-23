@@ -1,3 +1,5 @@
+/** @file A component to display a user-defined list of recipes. */
+
 import Component from "./component";
 import RecipeAutocomplete from "./recipeAutocomplete";
 import RecipeListStore from "../../model/recipeListStore";

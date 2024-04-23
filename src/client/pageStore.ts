@@ -1,3 +1,5 @@
+/** @file A bare-bones router to help with client-side navigation. */
+
 import Page from "./pages/page";
 
 export default class PageStore {

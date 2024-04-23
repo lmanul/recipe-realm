@@ -72,6 +72,9 @@ of them without any verification. Express's "Passport" module would make it
 quite easy to swap this mechanism for something more production-worthy, but
 I wanted to have at least a placeholder for that.
 
+At startup time, some users get a couple of recipe lists, seeded from
+`data/user_lists.txt`.
+
 ### Images
 
 I understand this wasn't explicitly part of the exercise, but being a fairly

@@ -1,3 +1,5 @@
+/** @file The home page, showing all recipes. */
+
 import RecipeStore from "../../model/recipeStore";
 import RecipeTile from "../components/recipeTile";
 import Page from "./page";

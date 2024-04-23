@@ -1,3 +1,5 @@
+/** @file A page the user's custom lists. */
+
 import RecipeListStore from "../../model/recipeListStore";
 import RecipeList from "../components/recipeList";
 import Page from "./page";

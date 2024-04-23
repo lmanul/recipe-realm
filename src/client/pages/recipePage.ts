@@ -1,3 +1,5 @@
+/** @file A page showing a single recipe's details. */
+
 import Page from "./page";
 import Recipe from "../../model/recipe";
 import RecipeBody from "../components/recipeBody";

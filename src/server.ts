@@ -135,4 +135,13 @@ app.get('/d/removefromlist/:listId/:recipeId', checkAuthenticated, (request, res
     }
 });
 
+app.get('/d/addtolist/:listId/:recipeId', checkAuthenticated, (request, response) => {
+    const list: RecipeList = RecipeListStore.getInstance().bundleForUser(request.user).getListById(request.params.listId);
+    if (!list) {
+        response.status(404).end();
+    } else {
+        list.add(request.params.recipeId);
+    }
+});
+
 app.listen(port, () => { console.log(`Listening on port ${port}. Ctrl-C to exit.`) });

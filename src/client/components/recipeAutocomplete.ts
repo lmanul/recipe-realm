@@ -76,7 +76,9 @@ export default class RecipeAutocomplete extends Component {
         }
         const recipeId = currentEl.getAttribute('data-id');
         if (recipeId && this.list) {
-            // TODO: Server
+            // Notify server
+            fetch(`/d/addtolist/${this.list.model.id}/${recipeId}`);
+            // Optimistic local update
             this.list.model.add(recipeId);
             this.list.refresh();
         }

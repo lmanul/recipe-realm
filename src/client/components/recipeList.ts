@@ -54,7 +54,9 @@ export default class RecipeList extends Component {
         this.element.innerHTML = `<h3 class="recipe-list-name">${this.model.name}</h3>`;
         if (this.modifiable) {
             this.element.innerHTML += `
-                <div><input class="add-recipe-input" placeholder="➕ Add recipe"></input></div>
+                <div class="add-recipe">
+                    <input class="add-recipe-input" placeholder="➕ Add recipe"></input>
+                </div>
             `;
         }
         const tiles = document.createElement('div');

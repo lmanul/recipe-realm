@@ -22,7 +22,7 @@ export default class ListsPage extends Page {
         const container = document.createElement('div');
         container.innerHTML = `
           <form action="/d/newlist" method="get">
-            <input name="listname" autocomplete="off" placeholder="List Name"></input>
+            <input name="listname" required autocomplete="off" placeholder="List Name"></input>
             <input name="recipeid" type="hidden"></input>
             <button>➕ New List</button>
           </form>

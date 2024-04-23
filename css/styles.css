@@ -65,6 +65,12 @@ nav {
   padding: 2ex;
 }
 
+.add-recipe {
+  display: inline-block;
+  margin-left: 2ex;
+  vertical-align: middle;
+}
+
 .recipe-list {
   display: flex;
   flex-direction: row;
@@ -112,8 +118,8 @@ nav {
 h3.recipe-list-name {
   display: inline-block;
   font-size: x-large;
-  margin-bottom: 1ex;
-  margin-top: 0;
+  margin: 0;
+  vertical-align: middle;
 }
 
 /* Recipe details page */

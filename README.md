@@ -83,6 +83,8 @@ well optimized and that with a little bit of post-processing, the total of
 ~1600 images add up to ~70 MB. I made sure to let the client know to load
 those lazily as they scroll through the list.
 
+You can find code for those steps inside `tools/`.
+
 ### Client code
 
 The application is small enough that all of its client-side code can be served
@@ -104,18 +106,20 @@ that includes the recipe's title would be) and 2) they don't make good use of
 all ASCII characters. But they allow for short URLs and are trivial to
 generate.
 
-## Ideas for improvements
+## Ideas for improvements (a.k.a. "Gotta draw the line somewhere")
 
 * Persist user data to a database
 * Better error handling when communication with server is unstable (retry,
   timeout, notify user)
 * Rename custom lists
 * Remove a recipe from a list from the recipe's details page
-* Better keyboard navigation (regardless of accessibility)
+* Better keyboard actions (regardless of accessibility)
 * Drag and drop items between lists
 * Drag and drop items within a list (change order)
 * "Other recipes like this" footer on recipe details page
 * Add new recipes
+* Regularly request updated data from the server, in case another client
+  modifies things for a given account.
 
 ### Other missing pieces
 

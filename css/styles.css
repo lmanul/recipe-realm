@@ -20,6 +20,15 @@ button, input, select {
   padding: 1.5ex;
 }
 
+@media (max-width: 900px) {
+  button, input, select {
+    padding: 0.5ex;
+  }
+  input {
+    max-width: 18ex;
+  }
+}
+
 button {
   cursor: pointer;
 }
@@ -36,6 +45,12 @@ nav {
 .nav-item {
   display: inline-block;
   padding: 3ex;
+}
+
+@media (max-width: 800px) {
+  .nav-item {
+    padding: 1ex;
+  }
 }
 
 .nav-item::first-letter {
@@ -100,6 +115,16 @@ nav {
   width: 15ex;
 }
 
+@media (max-width: 900px) {
+  .recipe-tile {
+    width: 13ex;
+  }
+  .recipe-tile img {
+    height: 10ex;
+    width: 10ex;
+  }
+}
+
 .recipe-tile span {
   display: block;
 }
@@ -136,9 +161,14 @@ h3.recipe-list-name {
   display: flex;
 }
 
+@media (max-width: 900px) {
+  .recipe-header {
+    display: block;
+  }
+}
+
 .recipe-header h2 {
-  display: inline-block;
-  margin-top: 0;
+  display: inline;
 }
 
 .recipe-header img {
@@ -147,9 +177,17 @@ h3.recipe-list-name {
   max-width: 50vw;
 }
 
+@media (max-width: 900px) {
+  .recipe-header img {
+    display: block;
+    margin: 1ex auto;
+    max-width: 90vw;
+  }
+}
+
 #recipe-inclusion {
   background-color: #f9dfd4;
-  margin-bottom: 2ex;
+  margin: 2ex 0;
   padding: 1ex;
 }
 

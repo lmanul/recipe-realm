@@ -1,12 +1,21 @@
-import Recipe from '../../model/recipe';
+import createFetchMock from 'vitest-fetch-mock';
 import RecipeListStore from '../../model/recipeListStore';
 import RecipeStore from '../../model/recipeStore';
-import { afterAll, expect, test } from 'vitest';
 import RecipeHeader from './recipeHeader';
+import Recipe from '../../model/recipe';
+import { afterAll, beforeAll, expect, test } from 'vitest';
+import { vi } from 'vitest';
+
+const fetchMocker = createFetchMock(vi);
+
+beforeAll(() => {
+    fetchMocker.enableMocks();
+});
 
 afterAll(() => {
     RecipeStore.getInstance().clearAll();
     delete globalThis['user'];
+    fetchMocker.dontMock();
 });
 
 test('Recipe header should provide list-related info and options', () => {
@@ -26,8 +35,8 @@ test('Recipe header should provide list-related info and options', () => {
     const listStore = RecipeListStore.getInstance();
 
     // These two lists contain this recipe.
-    listStore.newListForUser(user, 'A', recipeId);
-    listStore.newListForUser(user, 'B', recipeId);
+    listStore.newListForUser(user, 'A', undefined, recipeId);
+    listStore.newListForUser(user, 'B', undefined, recipeId);
 
     // Those two do not.
     listStore.newListForUser(user, 'Y');

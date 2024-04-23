@@ -19,16 +19,21 @@ export default class RecipeHeader extends Component {
             if (!(event.target instanceof HTMLSelectElement)) {
               return;
             }
+            const store = RecipeListStore.getInstance();
             const selected = event.target.selectedOptions[0];
+            const user = globalThis['user'];
             if (selected?.hasAttribute('name')) {
               const listId = selected.getAttribute('name');
               if (listId == 'new') {
-                // TODO
+                let name = '';
+                while(!name.trim()) {
+                  name = prompt('Name for the new list?');
+                }
+                store.newListForUser(user, name, undefined, this.recipe.id);
               } else {
-                const user = globalThis['user'];
-                RecipeListStore.getInstance().bundleForUser(user).getListById(listId).add(this.recipe.id);
-                this.refresh();
+                store.bundleForUser(user).getListById(listId).add(this.recipe.id);
               }
+              this.refresh();
             }
           });
         }

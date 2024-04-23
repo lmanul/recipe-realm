@@ -47,8 +47,10 @@ export default class RecipeHeader extends Component {
         let dontHaveIt: Array<RecipeList> = [];
         if (user) {
           const allLists: RecipeListBundle = store.bundleForUser(user);
-          for (const l of allLists.recipeLists.values()) {
-            (l.has(this.recipe.id) ? haveIt : dontHaveIt).push(l);
+          if (allLists) {
+            for (const l of allLists.recipeLists.values()) {
+              (l.has(this.recipe.id) ? haveIt : dontHaveIt).push(l);
+            }
           }
         }
         this.element = document.createElement('div');

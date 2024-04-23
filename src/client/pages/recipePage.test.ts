@@ -7,21 +7,30 @@ afterAll(() => {
     RecipeStore.getInstance().clearAll();
 });
 
+const sampleRecipe = new Recipe(
+    'Sweet buttery butter-flavored butter',
+    'abcd',
+    'https://notyournormaldiet.com/bbbutter',
+    'Jack Greasy',
+    'Pure decadence',
+    ['sugar', 'butter', 'butter', 'more butter', 'side of butter'],
+    ['Mix sugar and butter.', 'Melt in microwave.'],
+);
+
 test('Recipe details page should contain ingredients and method', () => {
-    const recipeId = 'abcd';
-    const recipe = new Recipe(
-        'Sweet buttery butter-flavored butter',
-        recipeId,
-        'https://notyournormaldiet.com/bbbutter',
-        'Jack Greasy',
-        'Pure decadence',
-        ['sugar', 'butter', 'butter', 'more butter', 'side of butter'],
-        ['Mix sugar and butter.', 'Melt in microwave.'],
-    );
-    RecipeStore.getInstance().add(recipe);
-    const page = new RecipePage(recipeId);
+    RecipeStore.getInstance().add(sampleRecipe);
+    const page = new RecipePage(sampleRecipe.id);
 
     const rendered = page.render().outerHTML;
     expect(rendered).toContain('more butter');
     expect(rendered).toContain('microwave');
+});
+
+test('Recipe details page should render correctly even if the user has no lists yet', () => {
+
+    globalThis['user'] = 'jackie';
+    RecipeStore.getInstance().add(sampleRecipe);
+    const page = new RecipePage(sampleRecipe.id).render();
+
+    expect(page.outerHTML).to.contain('<div');
 });

@@ -107,6 +107,8 @@ generate.
 ## Ideas for improvements
 
 * Persist user data to a database
+* Better error handling when communication with server is unstable (retry,
+  timeout, notify user)
 * Rename custom lists
 * Delete custom lists
 * Remove a recipe from a list from the recipe's details page

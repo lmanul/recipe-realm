@@ -29,6 +29,19 @@ export default class RecipeListStore {
         return this.bundles.get(username);
     }
 
+    public deleteList(username: string, listId: string) {
+        if (isClient()) {
+            // Let the server know.
+            fetch(`/d/deletelist/${listId}`);
+        }
+        const bundle = this.bundles.get(username);
+        // If the list we want to delete is actually not there, don't make
+        // a fuss about it.
+        if (bundle && bundle.getListById(listId)) {
+            bundle.recipeLists.delete(listId);
+        }
+    }
+
     public async newListForUser(username: string, listName: string, listId?: string, firstRecipeId?: string) {
         listId = listId || generateId();
 

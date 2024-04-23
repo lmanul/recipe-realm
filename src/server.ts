@@ -59,13 +59,17 @@ const populateCommonTemplateData = (request, dataObj?: Object) => {
     }
 };
 
-// Static routes
+///////////////////////////                   //////////////////////////
+///////////////////////////   Static routes   //////////////////////////
+///////////////////////////                   //////////////////////////
 
 app.use('/img', express.static('img'));
 app.use('/css', express.static('css'));
 app.use('/s', express.static('static'));
 
-// User-visible routes
+////////////////////////                         ///////////////////////
+////////////////////////   User-visible routes   ///////////////////////
+////////////////////////                         ///////////////////////
 
 // Home page
 app.get('/', (request, response) => {
@@ -102,7 +106,9 @@ app.get('/:recipeId', (request, response) => {
     }
 });
 
-// Data-only routes
+/////////////////////////                      ////////////////////////
+/////////////////////////   Data-only routes   ////////////////////////
+/////////////////////////                      ////////////////////////
 
 app.get('/r/:recipeId', (request, response) => {
     const recipe = recipeStore.getById(request.params.recipeId);
@@ -115,19 +121,22 @@ app.get('/r/:recipeId', (request, response) => {
 
 // Fetches the lists for the logged in user.
 app.get('/d/lists', checkAuthenticated, (request, response) => {
-    response.send(RecipeListStore.getInstance().bundleForUser(request.user)?.serialize());
+    response.send(RecipeListStore.getInstance().bundleForUser(
+        request.user)?.serialize());
 });
 
 // Creates a new list for the logged in user, optionally containing a first recipe.
 app.get('/d/newlist', checkAuthenticated, (request, response) => {
     const query = request.query;
     RecipeListStore.getInstance().newListForUser(
-        request.user, decodeURI(query.listname), query.listid, query.firstrecipeid);
+        request.user, decodeURI(query.listname), query.listid,
+        query.firstrecipeid);
     response.status(200).end();
 });
 
 app.get('/d/removefromlist/:listId/:recipeId', checkAuthenticated, (request, response) => {
-    const list: RecipeList = RecipeListStore.getInstance().bundleForUser(request.user).getListById(request.params.listId);
+    const list: RecipeList = RecipeListStore.getInstance().bundleForUser(
+        request.user).getListById(request.params.listId);
     if (!list) {
         response.status(404).end();
     } else {
@@ -137,13 +146,19 @@ app.get('/d/removefromlist/:listId/:recipeId', checkAuthenticated, (request, res
 });
 
 app.get('/d/addtolist/:listId/:recipeId', checkAuthenticated, (request, response) => {
-    const list: RecipeList = RecipeListStore.getInstance().bundleForUser(request.user).getListById(request.params.listId);
+    const list: RecipeList = RecipeListStore.getInstance().bundleForUser(
+        request.user).getListById(request.params.listId);
     if (!list) {
         response.status(404).end();
     } else {
         list.add(request.params.recipeId);
         response.status(200).end();
     }
+});
+
+app.get('d/deletelist/:listId', checkAuthenticated, (request, response) => {
+    RecipeListStore.getInstance().deleteList(request.user, request.params.listId);
+    response.status(200).end();
 });
 
 app.listen(port, () => { console.log(`Listening on port ${port}. Ctrl-C to exit.`) });

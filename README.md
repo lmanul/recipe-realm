@@ -104,6 +104,15 @@ that includes the recipe's title would be) and 2) they don't make good use of
 all ASCII characters. But they allow for short URLs and are trivial to
 generate.
 
+## Ideas for improvements
+
+* Persist user data to a database
+* Rename custom lists
+* Delete custom lists
+* Drag and drop items between lists
+* Drag and drop items within a list (change order)
+* Add new recipes
+
 ### Other missing pieces
 
 Some other things that would need a little extra effort for this to be a

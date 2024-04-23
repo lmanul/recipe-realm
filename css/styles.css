@@ -40,7 +40,6 @@ nav {
 
 .nav-item::first-letter {
   font-size: x-large;
-  vertical-align: middle;
 }
 
 .nav-item:hover, .nav-item.active:hover {
